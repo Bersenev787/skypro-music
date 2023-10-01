@@ -14,7 +14,7 @@ export default function Sidebar({ className }) {
       <div className="sidebar__block">
         <div className="sidebar__list">
           <div className="sidebar__item">
-            <a className="sidebar__link" href="#">
+            <a className="sidebar__link" href="/">
               <img
                 className="sidebar__img"
                 src="img/playlist01.png"
@@ -23,7 +23,7 @@ export default function Sidebar({ className }) {
             </a>
           </div>
           <div className="sidebar__item">
-            <a className="sidebar__link" href="#">
+            <a className="sidebar__link" href="/">
               <img
                 className="sidebar__img"
                 src="img/playlist02.png"
@@ -32,7 +32,7 @@ export default function Sidebar({ className }) {
             </a>
           </div>
           <div className="sidebar__item">
-            <a className="sidebar__link" href="#">
+            <a className="sidebar__link" href="/">
               <img
                 className="sidebar__img"
                 src="img/playlist03.png"

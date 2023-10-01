@@ -43,12 +43,12 @@ export default function Bar() {
                   </svg>
                 </div>
                 <div className="track-play__author">
-                  <a className="track-play__author-link" href="http://">
+                  <a className="track-play__author-link" href="/">
                     Ты та...
                   </a>
                 </div>
                 <div className="track-play__album">
-                  <a className="track-play__album-link" href="http://">
+                  <a className="track-play__album-link" href="/">
                     Баста
                   </a>
                 </div>

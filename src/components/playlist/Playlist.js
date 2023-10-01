@@ -12,18 +12,18 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Guilt <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Nero
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Welcome Reality
             </a>
           </div>
@@ -45,18 +45,18 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Elektro <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Dynoro, Outwork, Mr. Gee
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Elektro
             </a>
           </div>
@@ -78,18 +78,18 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 I’m Fire <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Ali Bakgor
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               I’m Fire
             </a>
           </div>
@@ -111,19 +111,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Non Stop
                 <span className="track__title-span">(Remix)</span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Стоункат, Psychopath
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Non Stop
             </a>
           </div>
@@ -145,19 +145,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Run Run
                 <span className="track__title-span">(feat. AR/CO)</span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Jaded, Will Clarke, AR/CO
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Run Run
             </a>
           </div>
@@ -179,19 +179,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Eyes on Fire
                 <span className="track__title-span">(Zeds Dead Remix)</span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Blue Foundation, Zeds Dead
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Eyes on Fire
             </a>
           </div>
@@ -213,19 +213,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Mucho Bien
                 <span className="track__title-span">(Hi Profile Remix)</span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               HYBIT, Mr. Black, Offer Nissim, Hi Profile
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Mucho Bien
             </a>
           </div>
@@ -247,19 +247,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Knives n Cherries
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               minthaze
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Captivating
             </a>
           </div>
@@ -281,19 +281,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Knives n Cherries
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               minthaze
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Captivating
             </a>
           </div>
@@ -314,19 +314,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Knives n Cherries
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               minthaze
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Captivating
             </a>
           </div>
@@ -347,19 +347,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Knives n Cherries
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               minthaze
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Captivating
             </a>
           </div>
@@ -380,19 +380,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Knives n Cherries
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               minthaze
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Captivating
             </a>
           </div>
@@ -413,19 +413,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Knives n Cherries
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               minthaze
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Captivating
             </a>
           </div>
@@ -446,19 +446,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Knives n Cherries
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               minthaze
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Captivating
             </a>
           </div>
@@ -480,19 +480,19 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 How Deep Is Your Love
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Calvin Harris, Disciples
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               How Deep Is Your Love
             </a>
           </div>
@@ -514,18 +514,18 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 Morena <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://">
+            <a className="track__author-link" href="/">
               Tom Boxer
             </a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://">
+            <a className="track__album-link" href="/">
               Soundz Made in Romania
             </a>
           </div>
@@ -547,16 +547,16 @@ export default function Playlist({ className }) {
               </svg>
             </div>
             <div className="track__title-text">
-              <a className="track__title-link" href="http://">
+              <a className="track__title-link" href="/">
                 <span className="track__title-span"></span>
               </a>
             </div>
           </div>
           <div className="track__author">
-            <a className="track__author-link" href="http://"></a>
+            <a className="track__author-link" href="/"></a>
           </div>
           <div className="track__album">
-            <a className="track__album-link" href="http://"></a>
+            <a className="track__album-link" href="/"></a>
           </div>
           <div className="track__time">
             <svg className="track__time-svg" alt="time">
