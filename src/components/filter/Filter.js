@@ -21,12 +21,8 @@ export default function Filter({ className }) {
   const genre = ["Rock", "Pop", "Country"];
 
   const handleClick = (buttonName) => {
-    console.log("clickckckc");
-
     setCategoryItemVisible(!isCategoryItemVisible);
     setCurrentButton(buttonName);
-
-    console.log("clickckckc", currentButton);
   };
 
   return (
