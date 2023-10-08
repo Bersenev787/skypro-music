@@ -29,9 +29,7 @@ ul li {
 
 @font-face {
   font-family: "StratosSkyeng";
-  src:
-    local("StratosSkyeng"),
-    local("StratosSkyeng"),
+  src: local("StratosSkyeng"), local("StratosSkyeng"),
     url(../public/fonts/StratosSkyeng.woff2) format("woff2"),
     url(../public/fonts/StratosSkyeng.woff) format("woff");
   font-weight: 400;
@@ -55,7 +53,7 @@ body {
 
 .container {
   max-width: 1920px;
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0 auto;
   position: relative;
   background-color: #181818;
@@ -93,17 +91,18 @@ body {
 }
 
 .main {
-  -webkit-box-flex: 1;
+  /* -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
+  flex: 1 1 auto; */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
+  padding-bottom: 80px;
 }
 
 .centerblock__search {
@@ -181,21 +180,22 @@ body {
   -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: auto;
+  gap: 12px;
 }
 
 .col01 {
-  width: 447px;
+  width: 350px;
 }
 
 .col02 {
-  width: 321px;
+  width: 300px;
 }
 
 .col03 {
-  width: 245px;
+  width: 185px;
 }
 
 .col04 {
-  width: 60px;
+  width: 80px;
   text-align: end;
 }

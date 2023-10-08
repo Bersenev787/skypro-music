@@ -1,5 +1,5 @@
 import "./MainNav.css";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function MainNav() {
   const [isMenuVisible, setVisible] = useState(false);
