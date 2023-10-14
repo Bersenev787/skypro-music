@@ -1,15 +1,15 @@
-import "./CategoryItem.css";
+import * as S from "./CategoryItem.styles";
 
 export default function CategoryItem({ items }) {
   return (
-    <div className="category-items">
-      <div className="category-items__box">
+    <S.CategoryItems>
+      <S.CategoryItemsBox>
         {items?.map((item) => (
-          <a key={item} href="/" className="category-item">
+          <S.CategoryItem key={item} href="/">
             {item}
-          </a>
+          </S.CategoryItem>
         ))}
-      </div>
-    </div>
+      </S.CategoryItemsBox>
+    </S.CategoryItems>
   );
 }

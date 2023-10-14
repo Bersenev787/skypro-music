@@ -1,19 +1,19 @@
-import "./Skeleton.css";
+import * as S from "./Skeleton.styles";
 
 export default function Skeleton() {
   return (
-    <div className="skeleton-playlist">
-      <div className="skeleton-playlist__song col01">
-        <div className="skeleton-playlist__icon"></div>
-        <div className="skeleton-playlist__name"></div>
-      </div>
+    <S.SkeletonPlaylist>
+      <S.SkeletonPlaylistSong className="col01">
+        <S.SkeletonPlaylistIcon></S.SkeletonPlaylistIcon>
+        <S.SkeletonPlaylistName></S.SkeletonPlaylistName>
+      </S.SkeletonPlaylistSong>
 
-      <div className="skeleton-playlist__author col02">
+      <S.SkeletonPlaylistAuthor className="col02">
         <div></div>
-      </div>
-      <div className="skeleton-playlist__album col03">
+      </S.SkeletonPlaylistAuthor>
+      <S.SkeletonPlaylisAlbum className="col03">
         <div></div>
-      </div>
-    </div>
+      </S.SkeletonPlaylisAlbum>
+    </S.SkeletonPlaylist>
   );
 }

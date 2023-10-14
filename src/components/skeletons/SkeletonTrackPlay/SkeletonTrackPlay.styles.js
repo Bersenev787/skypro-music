@@ -1,4 +1,6 @@
-.skeleton-trackplay__contain {
+import styled from "styled-components";
+
+export const SkeletonTrackPlayContain = styled.div`
   width: auto;
   display: -ms-grid;
   display: grid;
@@ -8,9 +10,9 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
+`;
 
-.skeleton-trackplay__image {
+export const SkeletonTrackPlayImg = styled.div`
   width: 51px;
   height: 51px;
   background-color: #313131;
@@ -28,22 +30,22 @@
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
   grid-area: image;
-}
+`;
 
-.skeleton-trackplay__author {
+export const SkeletonTrackPlayAuthor = styled.div`
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: author;
   min-width: 49px;
   background-color: #313131;
   height: 15px;
-}
+`;
 
-.skeleton-trackplay__album {
+export const SkeletonTrackPlayAlbum = styled.div`
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: album;
   min-width: 49px;
   background-color: #313131;
   height: 15px;
-}
+`;

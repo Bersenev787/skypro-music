@@ -1,11 +1,11 @@
-import "./Skeleton.css";
+import * as S from "./Skeleton.styles";
 
 export default function Skeleton() {
   return (
-    <div className="skeleton-sidebar">
-      <div className="skeleton-sidebar__item"></div>
-      <div className="skeleton-sidebar__item"></div>
-      <div className="skeleton-sidebar__item"></div>
-    </div>
+    <S.SkeletonSidebar>
+      <S.SkeletonSidebarItem></S.SkeletonSidebarItem>
+      <S.SkeletonSidebarItem></S.SkeletonSidebarItem>
+      <S.SkeletonSidebarItem></S.SkeletonSidebarItem>
+    </S.SkeletonSidebar>
   );
 }

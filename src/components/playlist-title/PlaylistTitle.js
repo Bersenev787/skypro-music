@@ -1,16 +1,16 @@
-import "./PlaylistTitle.css";
+import * as S from "./PlaylistTitle.styles";
 
-export default function PlaylistTitle({ className }) {
+export default function PlaylistTitle() {
   return (
-    <div className={`${className} playlist-title`}>
-      <div className="playlist-title__col col01">Трек</div>
-      <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
-      <div className="playlist-title__col col03">АЛЬБОМ</div>
-      <div className="playlist-title__col col04">
-        <svg className="playlist-title__svg" alt="time">
+    <S.PlaylistTitle>
+      <S.PlaylistTitleCol className={"col01"}>Трек</S.PlaylistTitleCol>
+      <S.PlaylistTitleCol className={"col02"}>ИСПОЛНИТЕЛЬ</S.PlaylistTitleCol>
+      <S.PlaylistTitleCol className={"col03"}>АЛЬБОМ</S.PlaylistTitleCol>
+      <S.PlaylistTitleCol className={"col04"}>
+        <S.PlaylistTitleSvg alt="time">
           <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
-        </svg>
-      </div>
-    </div>
+        </S.PlaylistTitleSvg>
+      </S.PlaylistTitleCol>
+    </S.PlaylistTitle>
   );
 }

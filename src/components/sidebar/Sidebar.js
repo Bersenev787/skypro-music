@@ -1,8 +1,8 @@
-import Skeleton from "../skeletons/SkeletonSidebar/Skeleton";
-import "./Sidebar.css";
 import { useEffect, useState } from "react";
+import Skeleton from "../skeletons/SkeletonSidebar/Skeleton";
+import * as S from "./Sidebar.styles";
 
-export default function Sidebar({ className }) {
+export default function Sidebar() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,51 +12,48 @@ export default function Sidebar({ className }) {
   });
 
   return (
-    <div className={`${className} sidebar`}>
-      <div className="sidebar__personal">
-        <p className="sidebar__personal-name">Sergey.Ivanov</p>
-        <div className="sidebar__icon">
+    <S.Sidebar>
+      <S.SidebarPersonal>
+        <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
+        <S.SidebarIcon>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>
           </svg>
-        </div>
-      </div>
-      <div className="sidebar__block">
+        </S.SidebarIcon>
+      </S.SidebarPersonal>
+      <S.SidebarBlock>
         {isLoading ? (
           <Skeleton />
         ) : (
           <>
-            <div className="sidebar__item">
-              <a className="sidebar__link" href="/">
-                <img
-                  className="sidebar__img"
+            <S.SidebarItem>
+              <S.SidebarLink href="/">
+                <S.SidebarImg
                   src="img/playlist01.png"
                   alt="day's playlist"
-                ></img>
-              </a>
-            </div>
-            <div className="sidebar__item">
-              <a className="sidebar__link" href="/">
-                <img
-                  className="sidebar__img"
+                ></S.SidebarImg>
+              </S.SidebarLink>
+            </S.SidebarItem>
+            <S.SidebarItem>
+              <S.SidebarLink href="/">
+                <S.SidebarImg
                   src="img/playlist02.png"
                   alt="day's playlist"
-                ></img>
-              </a>
-            </div>
-            <div className="sidebar__item">
-              <a className="sidebar__link" href="/">
-                <img
-                  className="sidebar__img"
+                ></S.SidebarImg>
+              </S.SidebarLink>
+            </S.SidebarItem>
+            <S.SidebarItem>
+              <S.SidebarLink href="/">
+                <S.SidebarImg
                   src="img/playlist03.png"
                   alt="day's playlist"
-                ></img>
-              </a>
-            </div>
+                ></S.SidebarImg>
+              </S.SidebarLink>
+            </S.SidebarItem>
           </>
         )}
-        <div className="sidebar__list"></div>
-      </div>
-    </div>
+        <S.SidebarList></S.SidebarList>
+      </S.SidebarBlock>
+    </S.Sidebar>
   );
 }
