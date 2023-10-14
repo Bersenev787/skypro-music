@@ -1,6 +1,16 @@
+import SkeletonTrackplay from "../skeletons/SkeletonTrackPlay/SkeletonTrackPlay";
 import "./Bar.css";
+import { useEffect, useState } from "react";
 
 export default function Bar() {
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+  });
+
   return (
     <div className="bar">
       <div className="bar__content">
@@ -36,23 +46,27 @@ export default function Bar() {
             </div>
 
             <div className="player__track-play track-play">
-              <div className="track-play__contain">
-                <div className="track-play__image">
-                  <svg className="track-play__svg" alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </svg>
+              {isLoading ? (
+                <SkeletonTrackplay />
+              ) : (
+                <div className="track-play__contain">
+                  <div className="track-play__image">
+                    <svg className="track-play__svg" alt="music">
+                      <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                    </svg>
+                  </div>
+                  <div className="track-play__author">
+                    <a className="track-play__author-link" href="/">
+                      Ты та...
+                    </a>
+                  </div>
+                  <div className="track-play__album">
+                    <a className="track-play__album-link" href="/">
+                      Баста
+                    </a>
+                  </div>
                 </div>
-                <div className="track-play__author">
-                  <a className="track-play__author-link" href="/">
-                    Ты та...
-                  </a>
-                </div>
-                <div className="track-play__album">
-                  <a className="track-play__album-link" href="/">
-                    Баста
-                  </a>
-                </div>
-              </div>
+              )}
 
               <div className="track-play__like-dis">
                 <div className="track-play__like _btn-icon">

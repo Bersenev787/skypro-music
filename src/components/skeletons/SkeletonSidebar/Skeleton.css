@@ -1,0 +1,14 @@
+.skeleton-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  /* justify-content: space-between; */
+  align-items: center;
+  width: 100%;
+}
+
+.skeleton-sidebar__item {
+  width: 250px;
+  height: 150px;
+  background: #313131;
+}
