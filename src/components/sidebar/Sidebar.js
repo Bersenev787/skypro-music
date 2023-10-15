@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import Skeleton from "../skeletons/SkeletonSidebar/Skeleton";
+import { Skeleton } from "../skeletons/SkeletonSidebar/Skeleton";
 import * as S from "./Sidebar.styles";
 
-export default function Sidebar() {
+export const Sidebar = () => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -56,4 +56,4 @@ export default function Sidebar() {
       </S.SidebarBlock>
     </S.Sidebar>
   );
-}
+};

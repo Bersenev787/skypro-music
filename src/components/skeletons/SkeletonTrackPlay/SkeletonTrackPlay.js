@@ -1,6 +1,6 @@
 import * as S from "./SkeletonTrackPlay.styles";
 
-export default function SkeletonTrackplay() {
+export const SkeletonTrackplay = () => {
   return (
     <S.SkeletonTrackPlayContain>
       <S.SkeletonTrackPlayImg></S.SkeletonTrackPlayImg>
@@ -8,4 +8,4 @@ export default function SkeletonTrackplay() {
       <S.SkeletonTrackPlayAlbum></S.SkeletonTrackPlayAlbum>
     </S.SkeletonTrackPlayContain>
   );
-}
+};

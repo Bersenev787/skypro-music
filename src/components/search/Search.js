@@ -1,6 +1,6 @@
 import * as S from "./Search.styled";
 
-export default function Search() {
+export const Search = () => {
   return (
     <S.Search>
       <S.SearchSvg>
@@ -9,4 +9,4 @@ export default function Search() {
       <S.SearchText type="search" placeholder="Поиск" name="search" />
     </S.Search>
   );
-}
+};

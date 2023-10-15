@@ -1,6 +1,6 @@
 import * as S from "./CategoryItem.styles";
 
-export default function CategoryItem({ items }) {
+export const CategoryItem = ({ items }) => {
   return (
     <S.CategoryItems>
       <S.CategoryItemsBox>
@@ -12,4 +12,4 @@ export default function CategoryItem({ items }) {
       </S.CategoryItemsBox>
     </S.CategoryItems>
   );
-}
+};

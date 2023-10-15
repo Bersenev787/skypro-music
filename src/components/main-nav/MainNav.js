@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as S from "./MainNav.styles";
 
-export default function MainNav() {
+export const MainNav = () => {
   const [isMenuVisible, setVisible] = useState(false);
 
   const handleClick = () => {
@@ -35,4 +35,4 @@ export default function MainNav() {
       )}
     </S.MainNav>
   );
-}
+};

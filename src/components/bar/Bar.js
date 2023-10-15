@@ -1,8 +1,8 @@
-import SkeletonTrackplay from "../skeletons/SkeletonTrackPlay/SkeletonTrackPlay";
+import { SkeletonTrackplay } from "../skeletons/SkeletonTrackPlay/SkeletonTrackPlay";
 import { useEffect, useState } from "react";
 import * as S from "./Bar.styles";
 
-export default function Bar() {
+export const Bar = () => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -100,4 +100,4 @@ export default function Bar() {
       </S.BarContent>
     </S.Bar>
   );
-}
+};

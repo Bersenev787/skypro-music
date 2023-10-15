@@ -1,6 +1,6 @@
 import * as S from "./Skeleton.styles";
 
-export default function Skeleton() {
+export const Skeleton = () => {
   return (
     <S.SkeletonSidebar>
       <S.SkeletonSidebarItem></S.SkeletonSidebarItem>

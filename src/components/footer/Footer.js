@@ -1,5 +1,5 @@
 import * as S from "./Footer.styles";
 
-export default function Footer() {
+export const Footer = () => {
   return <S.Footer></S.Footer>;
-}
+};

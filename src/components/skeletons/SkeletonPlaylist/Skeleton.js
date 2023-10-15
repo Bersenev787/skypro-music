@@ -1,6 +1,6 @@
 import * as S from "./Skeleton.styles";
 
-export default function Skeleton() {
+export const Skeleton = () => {
   return (
     <S.SkeletonPlaylist>
       <S.SkeletonPlaylistSong className="col01">
@@ -16,4 +16,6 @@ export default function Skeleton() {
       </S.SkeletonPlaylisAlbum>
     </S.SkeletonPlaylist>
   );
-}
+};
+
+export default Skeleton;

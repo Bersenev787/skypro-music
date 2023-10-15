@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SkeletonPlaylist from "../skeletons/SkeletonPlaylist/Skeleton";
 import * as S from "./Playlist.styles";
 
-export default function Playlist() {
+export const Playlist = () => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -374,4 +374,4 @@ export default function Playlist() {
       </S.PlaylistItem>
     </S.Playlist>
   );
-}
+};

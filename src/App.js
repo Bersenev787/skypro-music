@@ -1,14 +1,14 @@
 import * as S from "./App.styles";
-import Bar from "./components/bar/Bar";
-import Filter from "./components/filter/Filter";
-import Footer from "./components/footer/Footer";
-import MainNav from "./components/main-nav/MainNav";
-import PlaylistTitle from "./components/playlist-title/PlaylistTitle";
-import Playlist from "./components/playlist/Playlist";
-import Search from "./components/search/Search";
-import Sidebar from "./components/sidebar/Sidebar";
+import { Bar } from "./components/bar/Bar";
+import { Filter } from "./components/filter/Filter";
+import { Footer } from "./components/footer/Footer";
+import { MainNav } from "./components/main-nav/MainNav";
+import { PlaylistTitle } from "./components/playlist-title/PlaylistTitle";
+import { Playlist } from "./components/playlist/Playlist";
+import { Search } from "./components/search/Search";
+import { Sidebar } from "./components/sidebar/Sidebar";
 
-function App() {
+const App = () => {
   return (
     <>
       <S.GlobalStyle></S.GlobalStyle>
@@ -33,6 +33,6 @@ function App() {
       </S.Wrapper>
     </>
   );
-}
+};
 
 export default App;

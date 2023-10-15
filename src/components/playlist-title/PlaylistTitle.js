@@ -1,6 +1,6 @@
 import * as S from "./PlaylistTitle.styles";
 
-export default function PlaylistTitle() {
+export const PlaylistTitle = () => {
   return (
     <S.PlaylistTitle>
       <S.PlaylistTitleCol className={"col01"}>Трек</S.PlaylistTitleCol>
@@ -13,4 +13,4 @@ export default function PlaylistTitle() {
       </S.PlaylistTitleCol>
     </S.PlaylistTitle>
   );
-}
+};

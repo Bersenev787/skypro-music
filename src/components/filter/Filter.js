@@ -1,8 +1,8 @@
 import { useState } from "react";
 import * as S from "./Filter.styles";
-import CategoryItem from "./category-item/CategoryItem";
+import { CategoryItem } from "./category-item/CategoryItem";
 
-export default function Filter() {
+export const Filter = () => {
   const [isCategoryItemVisible, setCategoryItemVisible] = useState(false);
   const [currentButton, setCurrentButton] = useState(null);
 
@@ -77,4 +77,4 @@ export default function Filter() {
       </S.FilterAction>
     </S.Filter>
   );
-}
+};
