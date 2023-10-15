@@ -1,4 +1,5 @@
 import { useState } from "react";
+import cn from "classnames";
 import * as S from "./MainNav.styles";
 
 export const MainNav = () => {
@@ -7,6 +8,15 @@ export const MainNav = () => {
   const handleClick = () => {
     setVisible(!isMenuVisible);
   };
+
+  const isActiveLink = () => {
+    return ({ isActive }) =>
+      cn("MenuLink", {
+        [activeClassName]: isActive,
+      });
+  };
+
+  const activeClassName = "active";
 
   return (
     <S.MainNav>
@@ -22,13 +32,19 @@ export const MainNav = () => {
         <S.NavMenu>
           <S.MenuList>
             <S.MenuItem>
-              <S.MenuLink href="/">Главное</S.MenuLink>
+              <S.MenuLink to="/" className={isActiveLink}>
+                Главное
+              </S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink href="/">Мой плейлист</S.MenuLink>
+              <S.MenuLink to="/my-playlist" className={isActiveLink}>
+                Мой плейлист
+              </S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink href="/">Войти</S.MenuLink>
+              <S.MenuLink to="/login" className={isActiveLink}>
+                Войти
+              </S.MenuLink>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>
