@@ -32,7 +32,7 @@ export const Sidebar = () => {
           ) : (
             <>
               <S.SidebarItem>
-                <S.SidebarLink href="/">
+                <S.SidebarLink to="/day-playlist">
                   <S.SidebarImg
                     src="img/playlist01.png"
                     alt="day's playlist"
@@ -40,7 +40,7 @@ export const Sidebar = () => {
                 </S.SidebarLink>
               </S.SidebarItem>
               <S.SidebarItem>
-                <S.SidebarLink href="/">
+                <S.SidebarLink to="/hits-playlist">
                   <S.SidebarImg
                     src="img/playlist02.png"
                     alt="day's playlist"
@@ -48,7 +48,7 @@ export const Sidebar = () => {
                 </S.SidebarLink>
               </S.SidebarItem>
               <S.SidebarItem>
-                <S.SidebarLink href="/">
+                <S.SidebarLink to="/indy-playlist">
                   <S.SidebarImg
                     src="img/playlist03.png"
                     alt="day's playlist"

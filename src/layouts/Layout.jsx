@@ -5,8 +5,11 @@ import { Bar } from "../components/bar/Bar";
 import { Footer } from "../components/footer/Footer";
 import { Search } from "../components/search/Search";
 import { Filter } from "../components/filter/Filter";
+import { useLocation } from "react-router-dom";
 
 export const Layout = ({ children, title }) => {
+  const location = useLocation();
+  const isShowFilter = location.pathname === "/";
   return (
     <S.Wrapper>
       <S.Container>
@@ -15,7 +18,7 @@ export const Layout = ({ children, title }) => {
           <S.MainCenterBlock>
             <Search />
             <S.CenterBlockH2>{title}</S.CenterBlockH2>
-            <Filter />
+            {isShowFilter && <Filter />}
             <S.CenterBlockContent>{children}</S.CenterBlockContent>
           </S.MainCenterBlock>
           <Sidebar />
