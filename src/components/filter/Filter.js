@@ -1,8 +1,8 @@
-import "./Filter.css";
 import { useState } from "react";
+import * as S from "./Filter.styles";
 import CategoryItem from "./category-item/CategoryItem";
 
-export default function Filter({ className }) {
+export default function Filter() {
   const [isCategoryItemVisible, setCategoryItemVisible] = useState(false);
   const [currentButton, setCurrentButton] = useState(null);
 
@@ -26,55 +26,55 @@ export default function Filter({ className }) {
   };
 
   return (
-    <div className={`${className} filter`}>
-      <div className="filter__title">Искать по:</div>
-      <div className="filter__action">
-        <div
+    <S.Filter>
+      <S.FilterTitle>Искать по:</S.FilterTitle>
+      <S.FilterAction>
+        <S.FilterButtonAuthor
           className={`${
             isCategoryItemVisible &&
             currentButton === "button-author" &&
             "filter__button_active"
-          } filter__button button-author _btn-text`}
+          } _btn-text`}
           onClick={() => handleClick("button-author")}
         >
           исполнителю
-        </div>
+        </S.FilterButtonAuthor>
         {isCategoryItemVisible && currentButton === "button-author" && (
           <CategoryItem items={authors} />
         )}
-      </div>
+      </S.FilterAction>
 
-      <div className="filter__action">
-        <div
+      <S.FilterAction>
+        <S.FilterButtonYear
           className={`${
             isCategoryItemVisible &&
             currentButton === "button-year" &&
             "filter__button_active"
-          } filter__button button-year _btn-text`}
+          } _btn-text`}
           onClick={() => handleClick("button-year")}
         >
           году выпуска
-        </div>
+        </S.FilterButtonYear>
         {isCategoryItemVisible && currentButton === "button-year" && (
           <CategoryItem items={years} />
         )}
-      </div>
+      </S.FilterAction>
 
-      <div className="filter__action">
-        <div
+      <S.FilterAction>
+        <S.FilterButtonGenre
           className={`${
             isCategoryItemVisible &&
             currentButton === "button-genre" &&
             "filter__button_active"
-          } filter__button  button-genre _btn-text`}
+          } _btn-text`}
           onClick={() => handleClick("button-genre")}
         >
           жанру
           {isCategoryItemVisible && currentButton === "button-genre" && (
             <CategoryItem items={genre} />
           )}
-        </div>
-      </div>
-    </div>
+        </S.FilterButtonGenre>
+      </S.FilterAction>
+    </S.Filter>
   );
 }

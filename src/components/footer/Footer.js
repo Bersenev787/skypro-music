@@ -1,5 +1,5 @@
-import "./Footer.css";
+import * as S from "./Footer.styles";
 
 export default function Footer() {
-  return <footer className="footer"></footer>;
+  return <S.Footer></S.Footer>;
 }
