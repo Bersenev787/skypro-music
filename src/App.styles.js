@@ -30,6 +30,12 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
+  input,
+  textarea {
+    outline: none;
+    border: none;
+  }
+
   @font-face {
     font-family: "StratosSkyeng";
     src: local("StratosSkyeng"), local("StratosSkyeng"),
@@ -45,6 +51,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100vh;
     font-family: "StratosSkyeng", sans-serif;
     color: #ffffff;
+    background-color: #181818;
   }
 
   ._btn-text:hover {

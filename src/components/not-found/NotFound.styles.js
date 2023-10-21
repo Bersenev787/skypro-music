@@ -42,22 +42,3 @@ export const Text = styled.p`
   letter-spacing: -0.054px;
   color: #4e4e4e;
 `;
-
-export const Button = styled.button`
-  width: 278px;
-  height: 52px;
-  border-radius: 6px;
-  background: #580ea2;
-  color: #fff;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: -0.054px;
-  outline: none;
-  border: none;
-
-  &:hover {
-    background: #3f007d;
-  }
-`;

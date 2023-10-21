@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 import { Main } from "./pages/Main";
-import { Login } from "./pages/Login";
+import { Auth } from "./pages/Auth";
 import { MyPlaylist } from "./pages/MyPlaylist";
 import { DayPlaylist } from "./pages/DayPlaylist";
 import { HitsPlaylist } from "./pages/HitsPlaylist";
@@ -16,7 +16,7 @@ export const AppRoutes = () => {
       <Route path="/hits-playlist" element={<HitsPlaylist />} />
       <Route path="/indy-playlist" element={<IndyPlaylist />} />
       <Route path="*" element={<NotFoundPage />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Auth />} />
     </Routes>
   );
 };
