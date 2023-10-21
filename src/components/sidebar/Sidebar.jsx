@@ -14,12 +14,15 @@ export const Sidebar = () => {
 
   const location = useLocation();
   const isShowSidebar = location.pathname === "/";
+  const logout = () => {
+    localStorage.removeItem("token");
+  };
 
   return (
     <S.Sidebar>
       <S.SidebarPersonal>
         <S.SidebarPersonalName>Sergey.Ivanov</S.SidebarPersonalName>
-        <S.SidebarIcon>
+        <S.SidebarIcon onClick={logout}>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>
           </svg>

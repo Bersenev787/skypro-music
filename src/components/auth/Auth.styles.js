@@ -24,7 +24,6 @@ export const Modal = styled.div`
 
 export const ModalForm = styled.form`
   width: 366px;
-  height: 439px;
   background-color: #ffffff;
   border-radius: 12px;
   display: -webkit-box;
