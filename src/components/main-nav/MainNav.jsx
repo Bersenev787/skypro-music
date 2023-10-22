@@ -43,7 +43,7 @@ export const MainNav = () => {
               </S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink to="/my-playlist" className={isActiveLink}>
+              <S.MenuLink to="/favorites" className={isActiveLink}>
                 Мой плейлист
               </S.MenuLink>
             </S.MenuItem>

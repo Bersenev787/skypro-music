@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const Login = () => {
   const navigate = useNavigate();
   const handleBackButtonClick = () => {
-    navigate("/registration", { replace: true });
+    navigate("/register", { replace: true });
   };
   const submitForm = (e) => {
     e.preventDefault();
