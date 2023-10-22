@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import cn from "classnames";
 import * as S from "./MainNav.styles";
 
 export const MainNav = () => {
   const [isMenuVisible, setVisible] = useState(false);
+  const navigate = useNavigate();
+  const activeClassName = "active";
 
   const handleClick = () => {
     setVisible(!isMenuVisible);
@@ -16,7 +19,10 @@ export const MainNav = () => {
       });
   };
 
-  const activeClassName = "active";
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login", { replace: true });
+  };
 
   return (
     <S.MainNav>
@@ -42,8 +48,8 @@ export const MainNav = () => {
               </S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink to="/login" className={isActiveLink}>
-                Войти
+              <S.MenuLink to="/login" onClick={logout} className={isActiveLink}>
+                Выйти
               </S.MenuLink>
             </S.MenuItem>
           </S.MenuList>

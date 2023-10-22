@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Skeleton } from "../skeletons/SkeletonSidebar/Skeleton";
 import * as S from "./Sidebar.styles";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const Sidebar = () => {
   const [isLoading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
@@ -16,6 +17,7 @@ export const Sidebar = () => {
   const isShowSidebar = location.pathname === "/";
   const logout = () => {
     localStorage.removeItem("token");
+    navigate("/login", { replace: true });
   };
 
   return (

@@ -1,17 +1,15 @@
-import { NavLink } from "react-router-dom";
 import * as S from "./Auth.styles";
 import { BaseButton } from "../base/button/Button";
 import { useNavigate } from "react-router-dom";
 
 export const Registration = () => {
   const navigate = useNavigate();
-  const handleBackButtonClick = () => {
-    navigate("/login", { replace: true });
-  };
 
   const submitForm = (e) => {
     e.preventDefault();
     localStorage.setItem("token", "123");
+    navigate("/", { replace: true });
+    window.location.reload();
   };
 
   return (
@@ -27,9 +25,6 @@ export const Registration = () => {
       />
       <BaseButton onClick={submitForm} defaultButton={false}>
         Зарегистрироваться
-      </BaseButton>
-      <BaseButton onClick={handleBackButtonClick} defaultButton={true}>
-        Войти
       </BaseButton>
     </S.ModalForm>
   );

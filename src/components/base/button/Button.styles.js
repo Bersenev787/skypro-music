@@ -7,7 +7,6 @@ import styled from "styled-components";
 // `;
 
 export const BaseButton = styled.button`
-  ${(props) => console.log(props.$defaultButton)}
   background: ${(props) => (props.$defaultButton ? "transparent" : "#580ea2")};
   color: ${(props) => (props.$defaultButton ? "#000" : "#fff")};
   border: ${(props) =>

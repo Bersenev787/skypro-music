@@ -1,9 +1,8 @@
 import * as S from "./Button.styles";
 
 export const BaseButton = ({ onClick, defaultButton, children }) => {
-  console.log(defaultButton);
   return (
-    <S.BaseButton onClick={onClick} $defaultButton>
+    <S.BaseButton onClick={onClick} $defaultButton={defaultButton}>
       {children}
     </S.BaseButton>
   );

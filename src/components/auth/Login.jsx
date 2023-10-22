@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import * as S from "./Auth.styles";
 import { BaseButton } from "../base/button/Button";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,8 @@ export const Login = () => {
   const submitForm = (e) => {
     e.preventDefault();
     localStorage.setItem("token", "123");
+    navigate("/", { replace: true });
+    window.location.reload();
   };
 
   return (
