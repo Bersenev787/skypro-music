@@ -1,18 +1,32 @@
 import { SkeletonTrackplay } from "../skeletons/SkeletonTrackPlay/SkeletonTrackPlay";
 import { useEffect, useState } from "react";
 import * as S from "./Bar.styles";
+import { getTrack } from "../../api/api.playlist";
 
-export const Bar = () => {
-  const [isLoading, setLoading] = useState(true);
+export const Bar = ({ trackId }) => {
+  const [trackIsLoading, setTrackIsLoading] = useState(false);
+  const [track, setTrack] = useState(null);
+  const [addError, setAddError] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  });
+    getTrack(trackId)
+      .then((track) => setTrack(track))
+      .catch((error) => {
+        setAddError(error.message);
+      })
+      .finally(() => setTrackIsLoading(false));
+  }, [trackId]);
 
   return (
-    <S.Bar>
+    <S.Bar className={trackId && track?.id ? "active" : ""}>
+      <figure>
+        <figcaption>
+          {track?.author}: {track?.name}
+        </figcaption>
+        <audio controls src={track?.track_file}>
+          <a href={track?.track_file}> {track?.name} </a>
+        </audio>
+      </figure>
       <S.BarContent>
         <S.BarPlayerProgress></S.BarPlayerProgress>
         <S.BarPlayerBlock>
@@ -46,22 +60,26 @@ export const Bar = () => {
             </S.PlayerControls>
 
             <S.TrackPlay>
-              {isLoading ? (
+              {trackIsLoading ? (
                 <SkeletonTrackplay />
+              ) : addError ? (
+                <div>{addError}</div>
               ) : (
                 <S.TrackPlayContain>
                   <S.TrackPlayImg>
                     <S.TrackPlaySvg alt="music">
-                      <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+                      <use xlinkHref={track?.logo}></use>
                     </S.TrackPlaySvg>
                   </S.TrackPlayImg>
                   <S.TrackPlayAuthor>
                     <S.TrackPlayAuthorLink href="/">
-                      Ты та...
+                      {track?.name}
                     </S.TrackPlayAuthorLink>
                   </S.TrackPlayAuthor>
                   <S.TrackPlayAlbum>
-                    <S.TrackPlayAlbumLink href="/">Баста</S.TrackPlayAlbumLink>
+                    <S.TrackPlayAlbumLink href="/">
+                      {track?.author}
+                    </S.TrackPlayAlbumLink>
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
               )}

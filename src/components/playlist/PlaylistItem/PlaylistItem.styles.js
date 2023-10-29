@@ -61,12 +61,16 @@ export const TrackTitleSvg = styled.svg`
 
 export const TrackTitleText = styled.div``;
 
-export const TrackTitleLink = styled.a`
+export const TrackTitleLink = styled.button`
+  font-family: inherit;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
+  border: none;
+  background: none;
+  outline: none;
 `;
 
 export const TrackTitleSpan = styled.span`

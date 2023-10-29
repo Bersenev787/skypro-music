@@ -3,7 +3,7 @@ import * as S from "./Playlist.styles";
 import { PlaylistItem } from "./PlaylistItem/PlaylistItem";
 import { getPlaylist } from "../../api/api.playlist";
 
-export const Playlist = () => {
+export const Playlist = ({ playMusic }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [playlist, setPlaylist] = useState([]);
   const [addError, setAddError] = useState(null);
@@ -25,7 +25,12 @@ export const Playlist = () => {
         <div>{addError}</div>
       ) : (
         playlist?.map((item) => (
-          <PlaylistItem key={item.id} isLoading={isLoading} data={item} />
+          <PlaylistItem
+            key={item.id}
+            isLoading={isLoading}
+            data={item}
+            playMusic={playMusic}
+          />
         ))
       )}
     </S.Playlist>

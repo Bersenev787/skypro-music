@@ -1,7 +1,7 @@
 import SkeletonPlaylist from "../../skeletons/SkeletonPlaylist/Skeleton";
 import * as S from "./PlaylistItem.styles";
 
-export const PlaylistItem = ({ data, isLoading }) => {
+export const PlaylistItem = ({ data, isLoading, playMusic }) => {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -24,7 +24,7 @@ export const PlaylistItem = ({ data, isLoading }) => {
                 </S.TrackTitleSvg>
               </S.TrackTitleImg>
               <S.TrackTitleText>
-                <S.TrackTitleLink href="/">
+                <S.TrackTitleLink onClick={() => playMusic(data.id)}>
                   {data.name} <S.TrackTitleSpan></S.TrackTitleSpan>
                 </S.TrackTitleLink>
               </S.TrackTitleText>
