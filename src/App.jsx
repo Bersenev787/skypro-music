@@ -3,7 +3,6 @@ import { AppRoutes } from "./routes";
 
 const App = () => {
   const token = localStorage.getItem("token");
-  console.log("App token", token);
 
   return (
     <>
