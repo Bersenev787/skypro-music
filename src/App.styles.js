@@ -30,11 +30,17 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
+  input,
+  textarea {
+    outline: none;
+    border: none;
+  }
+
   @font-face {
     font-family: "StratosSkyeng";
     src: local("StratosSkyeng"), local("StratosSkyeng"),
-      url(../public/fonts/StratosSkyeng.woff2) format("woff2"),
-      url(../public/fonts/StratosSkyeng.woff) format("woff");
+      url("../fonts/StratosSkyeng.woff2") format("woff2"),
+      url("../fonts/StratosSkyeng.woff") format("woff");
     font-weight: 400;
     font-style: normal;
   }
@@ -42,9 +48,10 @@ export const GlobalStyle = createGlobalStyle`
   html,
   body {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     font-family: "StratosSkyeng", sans-serif;
     color: #ffffff;
+    background-color: #181818;
   }
 
   ._btn-text:hover {

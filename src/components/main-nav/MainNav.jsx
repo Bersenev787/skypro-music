@@ -1,11 +1,27 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import cn from "classnames";
 import * as S from "./MainNav.styles";
 
 export const MainNav = () => {
   const [isMenuVisible, setVisible] = useState(false);
+  const navigate = useNavigate();
+  const activeClassName = "active";
 
   const handleClick = () => {
     setVisible(!isMenuVisible);
+  };
+
+  const isActiveLink = () => {
+    return ({ isActive }) =>
+      cn("MenuLink", {
+        [activeClassName]: isActive,
+      });
+  };
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -22,13 +38,19 @@ export const MainNav = () => {
         <S.NavMenu>
           <S.MenuList>
             <S.MenuItem>
-              <S.MenuLink href="/">Главное</S.MenuLink>
+              <S.MenuLink to="/" className={isActiveLink}>
+                Главное
+              </S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink href="/">Мой плейлист</S.MenuLink>
+              <S.MenuLink to="/favorites" className={isActiveLink}>
+                Мой плейлист
+              </S.MenuLink>
             </S.MenuItem>
             <S.MenuItem>
-              <S.MenuLink href="/">Войти</S.MenuLink>
+              <S.MenuLink to="/login" onClick={logout} className={isActiveLink}>
+                Выйти
+              </S.MenuLink>
             </S.MenuItem>
           </S.MenuList>
         </S.NavMenu>
