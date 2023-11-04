@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import * as S from "./Playlist.styles";
 import { PlaylistItem } from "./PlaylistItem/PlaylistItem";
 import { getPlaylist } from "../../api/api.playlist";
+import SkeletonPlaylist from "../skeletons/SkeletonPlaylist/Skeleton";
 
 export const Playlist = ({ playMusic }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,10 +20,14 @@ export const Playlist = ({ playMusic }) => {
       .finally(() => setIsLoading(false));
   }, []);
 
+  if (addError?.length) {
+    return <div>{addError}</div>;
+  }
+
   return (
     <S.Playlist>
-      {addError?.length ? (
-        <div>{addError}</div>
+      {isLoading ? (
+        <SkeletonPlaylist />
       ) : (
         playlist?.map((item) => (
           <PlaylistItem

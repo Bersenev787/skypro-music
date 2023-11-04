@@ -1,4 +1,3 @@
-import SkeletonPlaylist from "../../skeletons/SkeletonPlaylist/Skeleton";
 import * as S from "./PlaylistItem.styles";
 
 export const PlaylistItem = ({ data, isLoading, playMusic }) => {
@@ -13,30 +12,24 @@ export const PlaylistItem = ({ data, isLoading, playMusic }) => {
   return (
     <S.PlaylistItem>
       <S.Track>
-        {isLoading ? (
-          <SkeletonPlaylist />
-        ) : (
-          <>
-            <S.TrackTitle>
-              <S.TrackTitleImg>
-                <S.TrackTitleSvg alt="music">
-                  <use xlinkHref={data.logo}></use>
-                </S.TrackTitleSvg>
-              </S.TrackTitleImg>
-              <S.TrackTitleText>
-                <S.TrackTitleLink onClick={() => playMusic(data.id)}>
-                  {data.name} <S.TrackTitleSpan></S.TrackTitleSpan>
-                </S.TrackTitleLink>
-              </S.TrackTitleText>
-            </S.TrackTitle>
-            <S.TrackAuthor>
-              <S.TrackAuthorLink href="/">{data.author}</S.TrackAuthorLink>
-            </S.TrackAuthor>
-            <S.TrackAlbum>
-              <S.TrackAlbumLink href="/">{data.album}</S.TrackAlbumLink>
-            </S.TrackAlbum>
-          </>
-        )}
+        <S.TrackTitle>
+          <S.TrackTitleImg>
+            <S.TrackTitleSvg alt="music">
+              <use xlinkHref={data.logo}></use>
+            </S.TrackTitleSvg>
+          </S.TrackTitleImg>
+          <S.TrackTitleText>
+            <S.TrackTitleLink onClick={() => playMusic(data.id)}>
+              {data.name} <S.TrackTitleSpan></S.TrackTitleSpan>
+            </S.TrackTitleLink>
+          </S.TrackTitleText>
+        </S.TrackTitle>
+        <S.TrackAuthor>
+          <S.TrackAuthorLink href="/">{data.author}</S.TrackAuthorLink>
+        </S.TrackAuthor>
+        <S.TrackAlbum>
+          <S.TrackAlbumLink href="/">{data.album}</S.TrackAlbumLink>
+        </S.TrackAlbum>
 
         <S.TrackTime>
           <S.TrackTimeSvg alt="time">
