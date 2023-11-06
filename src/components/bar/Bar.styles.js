@@ -8,6 +8,7 @@ const PlayerBtnMixin = css`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const Bar = styled.div`
@@ -32,32 +33,6 @@ export const BarContent = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
 `;
-
-// export const BarPlayerProgress = styled.div`
-//   width: 100%;
-//   height: 5px;
-
-//   -webkit-appearance: none;
-//   background-color: #9a905d;
-
-//   &::-webkit-slider-runnable-track {
-//     height: 2px;
-//     -webkit-appearance: none;
-//     color: #13bba4;
-//   }
-
-//   &::-webkit-slider-thumb {
-//     -webkit-appearance: none;
-//     margin-top: -5px;
-//     width: 12px;
-//     height: 12px;
-//     border-radius: 12px;
-//     border: 2px solid #fff;
-
-//     background: #1a1a1a;
-//     background: #434343;
-//   }
-// `;
 
 export const BarPlayerBlock = styled.div`
   height: 73px;

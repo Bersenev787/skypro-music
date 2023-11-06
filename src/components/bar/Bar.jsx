@@ -79,6 +79,10 @@ export const Bar = ({ trackId }) => {
     audioRef.current.currentTime = event.target.value;
   };
 
+  const handleNextPrevTracks = () => {
+    alert("Еще не реализовано");
+  };
+
   return (
     <S.Bar className={trackId && track?.id ? "active" : ""}>
       <audio
@@ -97,7 +101,7 @@ export const Bar = ({ trackId }) => {
         <S.BarPlayerBlock>
           <S.Player>
             <S.PlayerControls>
-              <S.PlayerBtnPrev>
+              <S.PlayerBtnPrev onClick={handleNextPrevTracks}>
                 <S.PlayerBtnPrevSvg alt="prev">
                   <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                 </S.PlayerBtnPrevSvg>
@@ -111,7 +115,7 @@ export const Bar = ({ trackId }) => {
                   ></use>
                 </S.PlayerBtnPlaySvg>
               </S.PlayerBtnPlay>
-              <S.PlayerBtnNext>
+              <S.PlayerBtnNext onClick={handleNextPrevTracks}>
                 <S.PlayerBtnNextSvg alt="next">
                   <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                 </S.PlayerBtnNextSvg>
