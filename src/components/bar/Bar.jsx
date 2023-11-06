@@ -47,17 +47,6 @@ export const Bar = ({ trackId }) => {
     setIsMuted((isMuted) => !isMuted);
   };
 
-  const formatTime = (time) => {
-    if (time && !isNaN(time)) {
-      const minutes = Math.floor(time / 60);
-      const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
-      const seconds = Math.floor(time % 60);
-      const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-      return `${formatMinutes}:${formatSeconds}`;
-    }
-    return "00:00";
-  };
-
   useEffect(() => {
     if (audioRef) {
       audioRef.current.muted = isMuted;
@@ -96,13 +85,9 @@ export const Bar = ({ trackId }) => {
         ref={audioRef}
         src={track?.track_file}
         autoPlay
-        controls
         loop={isLoop}
       ></audio>
       <S.BarContent>
-        <span className="time current">{formatTime(currentTime)}</span>
-        <span className="time">{formatTime(duration)}</span>
-
         <ProgressBar
           duration={duration}
           handleTimeProgress={handleTimeProgress}

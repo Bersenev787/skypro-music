@@ -1,7 +1,21 @@
 import styled from "styled-components";
 
+export const ProgressBar = styled.div`
+  text-align: right;
+`;
+
+export const ProgressTimer = styled.span`
+  display: block;
+  margin-right: 10px;
+  color: #696969;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.13;
+  letter-spacing: 0.016px;
+`;
+
 export const ProgressInput = styled.input`
-  --progress-height: 8px;
+  --progress-height: 5px;
   --progress-color: #b672ff;
   --progress-color: ${(props) => props.$color ?? "#b672ff"};
 
@@ -37,24 +51,4 @@ export const ProgressInput = styled.input`
   &::-webkit-slider-runnable-track {
     background: var(--progress-bg-color);
   }
-
-  /* FF */
-  // &::-moz-range-track {
-  //   width: 100%;
-  //   height: var(--progress-height);
-  //   background: var(--progress-bg-color);
-  //   border: none;
-  //   border-radius: 0px;
-  // }
-  // &::-moz-range-thumb {
-  //   border: none;
-  //   height: 25px;
-  //   width: 25px;
-  //   border-radius: 50%;
-  //   background: transparent;
-  // }
-  // &::-moz-range-progress {
-  //   background-color: var(--progress-color);
-  //   height: var(--progress-height);
-  // }
 `;
