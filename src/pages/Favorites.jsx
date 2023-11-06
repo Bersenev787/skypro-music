@@ -4,6 +4,7 @@ import { PlaylistTitle } from "../components/playlist-title/PlaylistTitle";
 
 export const Favorites = () => {
   const title = "Мои треки";
+
   return (
     <Layout title={title}>
       <PlaylistTitle />

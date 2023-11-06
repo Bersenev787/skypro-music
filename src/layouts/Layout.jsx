@@ -7,7 +7,7 @@ import { Search } from "../components/search/Search";
 import { Filter } from "../components/filter/Filter";
 import { useLocation } from "react-router-dom";
 
-export const Layout = ({ children, title }) => {
+export const Layout = ({ children, title, trackId }) => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
   return (
@@ -23,7 +23,7 @@ export const Layout = ({ children, title }) => {
           </S.MainCenterBlock>
           <Sidebar />
         </S.Main>
-        <Bar />
+        <Bar trackId={trackId} />
         <Footer />
       </S.Container>
     </S.Wrapper>

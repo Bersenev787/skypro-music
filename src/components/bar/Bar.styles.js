@@ -12,10 +12,15 @@ const PlayerBtnMixin = css`
 
 export const Bar = styled.div`
   position: fixed;
-  bottom: 0;
+  bottom: -100%;
   left: 0;
   width: 100%;
   background: rgba(28, 28, 28, 0.5);
+  transition: bottom 0.5s ease-in-out;
+
+  &.active {
+    bottom: 0;
+  }
 `;
 
 export const BarContent = styled.div`
@@ -152,8 +157,8 @@ export const TrackPlayContain = styled.div`
   width: auto;
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: auto 1fr;
-  grid-template-columns: auto 1fr;
+  -ms-grid-columns: auto auto;
+  grid-template-columns: auto auto;
   grid-template-areas: "image author" "image album";
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -191,7 +196,6 @@ export const TrackPlayAuthor = styled.div`
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: author;
-  min-width: 49px;
 `;
 
 export const TrackPlayAuthorLink = styled.a`
@@ -207,7 +211,6 @@ export const TrackPlayAlbum = styled.div`
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: album;
-  min-width: 49px;
 `;
 
 export const TrackPlayAlbumLink = styled.a`

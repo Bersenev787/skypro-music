@@ -1,377 +1,43 @@
 import { useEffect, useState } from "react";
-import SkeletonPlaylist from "../skeletons/SkeletonPlaylist/Skeleton";
 import * as S from "./Playlist.styles";
+import { PlaylistItem } from "./PlaylistItem/PlaylistItem";
+import { getPlaylist } from "../../api/api.playlist";
+import SkeletonPlaylist from "../skeletons/SkeletonPlaylist/Skeleton";
 
-export const Playlist = () => {
-  const [isLoading, setLoading] = useState(true);
+export const Playlist = ({ playMusic }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [playlist, setPlaylist] = useState([]);
+  const [addError, setAddError] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-  });
+    setIsLoading(true);
+
+    getPlaylist()
+      .then((playlist) => setPlaylist(playlist))
+      .catch((error) => {
+        setAddError(error.message);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  if (addError?.length) {
+    return <div>{addError}</div>;
+  }
 
   return (
     <S.Playlist>
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
-
-      <S.PlaylistItem>
-        <S.Track>
-          {isLoading ? (
-            <SkeletonPlaylist />
-          ) : (
-            <>
-              <S.TrackTitle>
-                <S.TrackTitleImg>
-                  <S.TrackTitleSvg alt="music">
-                    <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-                  </S.TrackTitleSvg>
-                </S.TrackTitleImg>
-                <S.TrackTitleText>
-                  <S.TrackTitleLink href="/">
-                    Guilt <S.TrackTitleSpan></S.TrackTitleSpan>
-                  </S.TrackTitleLink>
-                </S.TrackTitleText>
-              </S.TrackTitle>
-              <S.TrackAuthor>
-                <S.TrackAuthorLink href="/">Nero</S.TrackAuthorLink>
-              </S.TrackAuthor>
-              <S.TrackAlbum>
-                <S.TrackAlbumLink href="/">Welcome Reality</S.TrackAlbumLink>
-              </S.TrackAlbum>
-            </>
-          )}
-
-          <S.TrackTime>
-            <S.TrackTimeSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            </S.TrackTimeSvg>
-            <S.TrackTimeText>4:44</S.TrackTimeText>
-          </S.TrackTime>
-        </S.Track>
-      </S.PlaylistItem>
+      {isLoading ? (
+        <SkeletonPlaylist />
+      ) : (
+        playlist?.map((item) => (
+          <PlaylistItem
+            key={item.id}
+            isLoading={isLoading}
+            data={item}
+            playMusic={playMusic}
+          />
+        ))
+      )}
     </S.Playlist>
   );
 };
