@@ -11,8 +11,9 @@ export const Bar = ({ trackId }) => {
   const [isPlay, setIsPlay] = useState(true);
   const [isLoop, setIsLoop] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [timeProgress, setTimeProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(null);
+  const [currentTime, setCurrentTime] = useState(null);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     getTrack(trackId)
@@ -22,9 +23,6 @@ export const Bar = ({ trackId }) => {
       })
       .finally(() => setTrackIsLoading(false));
   }, [trackId]);
-
-  const audioRef = useRef(null);
-  const progressBarRef = useRef(null);
 
   const handlePlay = () => {
     setIsPlay((isPlay) => !isPlay);
@@ -36,9 +34,10 @@ export const Bar = ({ trackId }) => {
     setIsLoop((isLoop) => !isLoop);
   };
 
-  const [volume, setVolume] = useState(60);
+  const [volume, setVolume] = useState(10);
   const changeVolume = (e) => {
     setVolume(e.target.value);
+
     if (isMuted) {
       handleMuted();
     }
@@ -46,12 +45,6 @@ export const Bar = ({ trackId }) => {
 
   const handleMuted = () => {
     setIsMuted((isMuted) => !isMuted);
-  };
-
-  const onLoadedMetadata = () => {
-    const seconds = audioRef.current.duration;
-    setDuration(seconds);
-    progressBarRef.current.max = seconds;
   };
 
   const formatTime = (time) => {
@@ -70,14 +63,32 @@ export const Bar = ({ trackId }) => {
       audioRef.current.muted = isMuted;
       audioRef.current.volume = volume / 100;
     }
-
-    console.log(audioRef.current.currentTime);
   }, [isMuted, volume]);
 
   useEffect(() => {
-    const currentTime = audioRef.current.currentTime;
-    setTimeProgress(currentTime);
-  }, [timeProgress]);
+    if (isPlay) {
+      audioRef.current.addEventListener("loadedmetadata", () => {
+        const duration = audioRef.current.duration;
+        const currentTime = audioRef.current.currentTime;
+
+        setDuration(duration);
+        setCurrentTime(currentTime);
+
+        const interval = setInterval(() => {
+          setCurrentTime(Math.floor(audioRef.current.currentTime));
+        }, 1000);
+
+        setTimeout(() => {
+          clearInterval(interval);
+        }, audioRef.current.duration * 1000);
+      });
+    }
+  }, [currentTime, duration, isPlay]);
+
+  const handleTimeProgress = (event) => {
+    setCurrentTime(event.target.value);
+    audioRef.current.currentTime = event.target.value;
+  };
 
   return (
     <S.Bar className={trackId && track?.id ? "active" : ""}>
@@ -85,20 +96,18 @@ export const Bar = ({ trackId }) => {
         ref={audioRef}
         src={track?.track_file}
         autoPlay
+        controls
         loop={isLoop}
-        onLoadedMetadata={onLoadedMetadata}
       ></audio>
       <S.BarContent>
-        <span className="time current">{formatTime(timeProgress)}</span>
+        <span className="time current">{formatTime(currentTime)}</span>
         <span className="time">{formatTime(duration)}</span>
+
         <ProgressBar
-          {...{
-            progressBarRef,
-            audioRef,
-            timeProgress,
-            duration,
-            setTimeProgress,
-          }}
+          duration={duration}
+          handleTimeProgress={handleTimeProgress}
+          currentTime={currentTime}
+          setCurrentTime={setCurrentTime}
         />
         <S.BarPlayerBlock>
           <S.Player>
@@ -191,6 +200,7 @@ export const Bar = ({ trackId }) => {
                   name="range"
                   min={0}
                   max={100}
+                  value={volume}
                   style={{
                     background: `${
                       isMuted

@@ -1,28 +1,60 @@
 import styled from "styled-components";
 
-export const ProgressBar = styled.input`
-  width: 100%;
-  height: 5px;
-  cursor: pointer;
+export const ProgressInput = styled.input`
+  --progress-height: 8px;
+  --progress-color: #b672ff;
+  --progress-color: ${(props) => props.$color ?? "#b672ff"};
 
+  --progress-bg-color: #2e2e2e;
+
+  margin: 0;
+  width: 100%;
+  height: var(--progress-height);
   -webkit-appearance: none;
-  background-color: #2e2e2e;
+  cursor: pointer;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
 
   &::-webkit-slider-runnable-track {
-    height: 2px;
-    // -webkit-appearance: none;
-    color: #13bba4;
+    position: relative;
+    height: var(--progress-height);
+    background: var(--progress-bg-color);
   }
 
   &::-webkit-slider-thumb {
+    --thumb-height: 1px;
+    --thumb-width: 1px;
+    position: relative;
     -webkit-appearance: none;
-    margin-top: -5px;
-    width: 12px;
-    height: 12px;
-    border-radius: 12px;
-    border: 2px solid #fff;
-
-    background: #1a1a1a;
-    background: #434343;
+    width: var(--thumb-width, var(--thumb-height));
+    box-shadow: calc(
+        -${(props) => props.$duration}vmax - var(--thumb-width, var(--thumb-height))
+      )
+      0 0 ${(props) => props.$duration}vmax var(--progress-color);
   }
+
+  &::-webkit-slider-runnable-track {
+    background: var(--progress-bg-color);
+  }
+
+  /* FF */
+  // &::-moz-range-track {
+  //   width: 100%;
+  //   height: var(--progress-height);
+  //   background: var(--progress-bg-color);
+  //   border: none;
+  //   border-radius: 0px;
+  // }
+  // &::-moz-range-thumb {
+  //   border: none;
+  //   height: 25px;
+  //   width: 25px;
+  //   border-radius: 50%;
+  //   background: transparent;
+  // }
+  // &::-moz-range-progress {
+  //   background-color: var(--progress-color);
+  //   height: var(--progress-height);
+  // }
 `;

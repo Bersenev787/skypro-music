@@ -1,38 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as S from "./ProgressBar.styled";
 
-const ProgressBar = ({
-  progressBarRef,
-  audioRef,
-  timeProgress,
+export default function ProgressBar({
   duration,
-  setTimeProgress,
-}) => {
-  const [bgColor, setBgColor] = useState("");
-
-  const handleProgressChange = () => {
-    audioRef.current.currentTime = progressBarRef.current.value;
-    changeBackground();
-    setTimeProgress(audioRef.current.currentTime);
-  };
-
-  const changeBackground = () => {
-    const colorGradient = `linear-gradient(to right, #fff ${
-      (progressBarRef.current?.value / duration) * 100
-    }%, #797979 ${(progressBarRef.current?.value / duration) * 100}%)`;
-    setBgColor(colorGradient);
-  };
-
+  currentTime,
+  handleTimeProgress,
+}) {
   return (
-    <S.ProgressBar
+    <S.ProgressInput
       type="range"
-      ref={progressBarRef}
       min={0}
       max={duration}
-      onChange={handleProgressChange}
-      style={{ background: bgColor }}
+      value={currentTime || 0}
+      step={0.01}
+      onChange={handleTimeProgress}
+      $color="#b672ff"
+      $duration={duration}
     />
   );
-};
-
-export default ProgressBar;
+}
