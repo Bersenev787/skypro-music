@@ -8,6 +8,7 @@ const PlayerBtnMixin = css`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const Bar = styled.div`
@@ -31,12 +32,6 @@ export const BarContent = styled.div`
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-`;
-
-export const BarPlayerProgress = styled.div`
-  width: 100%;
-  height: 5px;
-  background: #2e2e2e;
 `;
 
 export const BarPlayerBlock = styled.div`
@@ -99,6 +94,11 @@ export const PlayerBtnPlaySvg = styled.svg`
   width: 22px;
   height: 20px;
   fill: #d9d9d9;
+  transition: opacity 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 export const PlayerBtnNext = styled.div`
@@ -117,6 +117,21 @@ export const PlayerBtnNextSvg = styled.svg`
 export const PlayerBtnRepeat = styled.div`
   ${PlayerBtnMixin}
   margin-right: 24px;
+  cursor: pointer;
+
+  &.active {
+    svg {
+      fill: #fff;
+      stroke: #fff;
+    }
+  }
+
+  &:hover {
+    svg {
+      fill: #acacac;
+      stroke: #acacac;
+    }
+  }
 `;
 
 export const PlayerBtnRepeatSvg = styled.svg`
@@ -293,6 +308,7 @@ export const VolumeImg = styled.div`
   width: 13px;
   height: 18px;
   margin-right: 17px;
+  cursor: pointer;
 `;
 
 export const VolumeSvg = styled.svg`
@@ -302,9 +318,39 @@ export const VolumeSvg = styled.svg`
 `;
 
 export const VolumeProgress = styled.div`
+  display: flex;
+  align-items: center;
   width: 109px;
 `;
 
 export const VolumeProgressLine = styled.input`
   width: 100%;
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  background-color: #9a905d;
+
+  &::-webkit-slider-runnable-track {
+    height: 2px;
+    -webkit-appearance: none;
+    color: #13bba4;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    margin-top: -5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 12px;
+    border: 2px solid #fff;
+
+    background: #1a1a1a;
+    background: #434343;
+  }
+
+  &.muted {
+    &::-webkit-slider-thumb {
+      left: 0;
+    }
+  }
 `;
