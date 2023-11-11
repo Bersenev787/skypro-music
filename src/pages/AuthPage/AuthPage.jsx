@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
+import { register } from "../../api/api.auth";
 
 export const AuthPage = ({ isLoginMode = false }) => {
   const [error, setError] = useState(null);
 
   const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
@@ -15,14 +17,21 @@ export const AuthPage = ({ isLoginMode = false }) => {
   };
 
   const handleRegister = async () => {
-    alert(`Выполняется регистрация: ${email} ${password}`);
-    setError("Неизвестная ошибка регистрации");
+    console.log(email, password);
+    register({ email, password, userName })
+      .then((data) => console.log(data))
+      .catch((error) => {
+        console.log("auth page error", error);
+        setError(error.message);
+      });
+    // alert(`Выполняется регистрация: ${email} ${password}`);
+    // setError("Неизвестная ошибка регистрации");
   };
 
   // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
   useEffect(() => {
     setError(null);
-  }, [isLoginMode, email, password, repeatPassword]);
+  }, [isLoginMode, userName, email, password, repeatPassword]);
 
   return (
     <S.PageContainer>
@@ -69,6 +78,15 @@ export const AuthPage = ({ isLoginMode = false }) => {
             <S.Inputs>
               <S.ModalInput
                 type="text"
+                name="userName"
+                placeholder="Имя"
+                value={userName}
+                onChange={(event) => {
+                  setUserName(event.target.value);
+                }}
+              />
+              <S.ModalInput
+                type="text"
                 name="login"
                 placeholder="Почта"
                 value={email}
@@ -85,7 +103,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
                   setPassword(event.target.value);
                 }}
               />
-              <S.ModalInput
+              {/* <S.ModalInput
                 type="password"
                 name="repeat-password"
                 placeholder="Повторите пароль"
@@ -93,7 +111,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
                 onChange={(event) => {
                   setRepeatPassword(event.target.value);
                 }}
-              />
+              /> */}
             </S.Inputs>
             {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
