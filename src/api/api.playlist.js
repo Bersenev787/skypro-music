@@ -1,4 +1,4 @@
-const apiHost = "https://skypro-music-api.skyeng.tech";
+import { apiHost } from "./api.constants";
 
 export async function getPlaylist() {
   const res = await fetch(`${apiHost}/catalog/track/all`);
