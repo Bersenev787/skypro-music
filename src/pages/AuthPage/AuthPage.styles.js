@@ -65,6 +65,13 @@ const Button = styled.button`
 
   &:disabled {
     background-color: #303030;
+    &:hover {
+      background-color: #303030;
+    }
+
+    &:active {
+      background-color: #303030;
+    }
   }
 `;
 
@@ -113,6 +120,5 @@ export const Error = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
-  margin-top: 20px;
   text-align: left;
 `;

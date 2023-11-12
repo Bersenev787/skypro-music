@@ -1,37 +1,40 @@
 import { Link } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
-import { register } from "../../api/api.auth";
+import { login, register } from "../../api/api.auth";
 
 export const AuthPage = ({ isLoginMode = false }) => {
   const [error, setError] = useState(null);
 
   const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async ({ email, password }) => {
-    alert(`Выполняется вход: ${email} ${password}`);
-    setError("Неизвестная ошибка входа");
+  const handleLogin = async () => {
+    setIsLoading(true);
+    await login({ email, password, username })
+      .then((data) => data)
+      .catch((error) => {
+        setError({ ...JSON.parse(error.message) });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleRegister = async () => {
-    console.log(email, password);
-    register({ email, password, userName })
-      .then((data) => console.log(data))
+    setIsLoading(true);
+    await register({ email, password, username })
+      .then((data) => data)
       .catch((error) => {
-        console.log("auth page error", error);
-        setError(error.message);
-      });
-    // alert(`Выполняется регистрация: ${email} ${password}`);
-    // setError("Неизвестная ошибка регистрации");
+        setError({ ...JSON.parse(error.message) });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
   useEffect(() => {
     setError(null);
-  }, [isLoginMode, userName, email, password, repeatPassword]);
+  }, [isLoginMode, username, email, password]);
 
   return (
     <S.PageContainer>
@@ -44,28 +47,36 @@ export const AuthPage = ({ isLoginMode = false }) => {
         {isLoginMode ? (
           <>
             <S.Inputs>
-              <S.ModalInput
-                type="text"
-                name="login"
-                placeholder="Почта"
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-              />
-              <S.ModalInput
-                type="password"
-                name="password"
-                placeholder="Пароль"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-              />
+              <div>
+                <S.ModalInput
+                  type="email"
+                  name="login"
+                  placeholder="Почта"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                />
+                {error && <S.Error>{error.email}</S.Error>}
+              </div>
+              <div>
+                <S.ModalInput
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                />
+                {error && <S.Error>{error.password}</S.Error>}
+              </div>
             </S.Inputs>
-            {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton onClick={() => handleLogin({ email, password })}>
+              <S.PrimaryButton
+                disabled={isLoading || error}
+                onClick={handleLogin}
+              >
                 Войти
               </S.PrimaryButton>
               <Link to="/register">
@@ -76,46 +87,49 @@ export const AuthPage = ({ isLoginMode = false }) => {
         ) : (
           <>
             <S.Inputs>
-              <S.ModalInput
-                type="text"
-                name="userName"
-                placeholder="Имя"
-                value={userName}
-                onChange={(event) => {
-                  setUserName(event.target.value);
-                }}
-              />
-              <S.ModalInput
-                type="text"
-                name="login"
-                placeholder="Почта"
-                value={email}
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-              />
-              <S.ModalInput
-                type="password"
-                name="password"
-                placeholder="Пароль"
-                value={password}
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-              />
-              {/* <S.ModalInput
-                type="password"
-                name="repeat-password"
-                placeholder="Повторите пароль"
-                value={repeatPassword}
-                onChange={(event) => {
-                  setRepeatPassword(event.target.value);
-                }}
-              /> */}
+              <div>
+                <S.ModalInput
+                  type="text"
+                  name="username"
+                  placeholder="Имя"
+                  value={username}
+                  onChange={(event) => {
+                    setUserName(event.target.value);
+                  }}
+                />
+                {error && <S.Error>{error.username}</S.Error>}
+              </div>
+              <div>
+                <S.ModalInput
+                  type="email"
+                  name="login"
+                  placeholder="Почта"
+                  value={email}
+                  onChange={(event) => {
+                    setEmail(event.target.value);
+                  }}
+                />
+                {error && <S.Error>{error.email}</S.Error>}
+              </div>
+
+              <div>
+                <S.ModalInput
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  value={password}
+                  onChange={(event) => {
+                    setPassword(event.target.value);
+                  }}
+                />
+                {error && <S.Error>{error.password}</S.Error>}
+              </div>
             </S.Inputs>
-            {error && <S.Error>{error}</S.Error>}
             <S.Buttons>
-              <S.PrimaryButton onClick={handleRegister}>
+              <S.PrimaryButton
+                disabled={isLoading || error}
+                onClick={handleRegister}
+              >
                 Зарегистрироваться
               </S.PrimaryButton>
             </S.Buttons>
