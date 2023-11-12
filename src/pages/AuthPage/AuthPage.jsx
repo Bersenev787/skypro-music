@@ -15,9 +15,15 @@ export const AuthPage = ({ isLoginMode = false }) => {
 
   const handleLogin = async () => {
     setIsLoading(true);
+    if (!email.length || !password.length) {
+      setError({
+        detail: "Это поле не может быть пустым.",
+      });
+      setIsLoading(false);
+      return;
+    }
     await login({ email, password })
       .then((data) => {
-        console.log("data", data);
         localStorage.setItem("user", JSON.stringify(data));
         setUser(JSON.parse(localStorage.getItem("user")));
         navigate("/");
@@ -31,6 +37,15 @@ export const AuthPage = ({ isLoginMode = false }) => {
 
   const handleRegister = async () => {
     setIsLoading(true);
+    if (!email.length || !password.length || !username.length) {
+      setError({
+        email: "Это поле не может быть пустым.",
+        password: "Это поле не может быть пустым.",
+        username: "Это поле не может быть пустым.",
+      });
+      setIsLoading(false);
+      return;
+    }
     await register({ email, password, username })
       .then((data) => {
         localStorage.setItem("user", JSON.stringify(data));
@@ -44,7 +59,6 @@ export const AuthPage = ({ isLoginMode = false }) => {
       .finally(() => setIsLoading(false));
   };
 
-  // Сбрасываем ошибку если пользователь меняет данные на форме или меняется режим формы
   useEffect(() => {
     setError(null);
   }, [isLoginMode, username, email, password]);
@@ -70,7 +84,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
                     setEmail(event.target.value);
                   }}
                 />
-                {error && <S.Error>{error.email}</S.Error>}
+                {error && <S.Error>{error.detail}</S.Error>}
               </div>
               <div>
                 <S.ModalInput
@@ -82,7 +96,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
                     setPassword(event.target.value);
                   }}
                 />
-                {error && <S.Error>{error.password}</S.Error>}
+                {error && <S.Error>{error.detail}</S.Error>}
               </div>
             </S.Inputs>
             <S.Buttons>
