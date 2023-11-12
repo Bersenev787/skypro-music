@@ -10,11 +10,9 @@ export async function register(formData) {
       // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
       "content-type": "application/json",
     },
-  })
-    .then((response) => response.json())
-    .then((json) => json);
+  }).then((response) => response.json());
 
-  if (!res.ok) {
+  if (!res.ok && !res.id) {
     throw Error(JSON.stringify(res));
   }
 
@@ -35,7 +33,7 @@ export async function login(formData) {
     .then((response) => response.json())
     .then((json) => json);
 
-  if (!res.ok) {
+  if (!res.ok && !res.id) {
     throw Error(JSON.stringify(res));
   }
 

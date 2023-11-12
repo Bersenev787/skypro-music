@@ -1,20 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
 import { login, register } from "../../api/api.auth";
+import { useUserContext } from "../../components/contexts/User";
 
 export const AuthPage = ({ isLoginMode = false }) => {
   const [error, setError] = useState(null);
-
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useUserContext();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     setIsLoading(true);
-    await login({ email, password, username })
-      .then((data) => data)
+    await login({ email, password })
+      .then((data) => {
+        console.log("data", data);
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(JSON.parse(localStorage.getItem("user")));
+        navigate("/");
+        return data;
+      })
       .catch((error) => {
         setError({ ...JSON.parse(error.message) });
       })
@@ -24,7 +32,12 @@ export const AuthPage = ({ isLoginMode = false }) => {
   const handleRegister = async () => {
     setIsLoading(true);
     await register({ email, password, username })
-      .then((data) => data)
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
+        setUser(JSON.parse(localStorage.getItem("user")));
+        navigate("/");
+        return data;
+      })
       .catch((error) => {
         setError({ ...JSON.parse(error.message) });
       })
