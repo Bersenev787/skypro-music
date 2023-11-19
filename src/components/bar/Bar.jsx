@@ -93,6 +93,7 @@ export const Bar = () => {
     const isSwitchPrev = switchTrack === "prev" && currentTrackIndex === 0;
     let countCurrentIndex =
       switchTrack === "next" ? currentTrackIndex + 1 : currentTrackIndex - 1;
+    const countCurrentTime = 5;
 
     if ((!isShuffle && isSwitchNext) || (!isShuffle && isSwitchPrev)) {
       return;
@@ -107,6 +108,11 @@ export const Bar = () => {
     }
 
     const prevOrNextTrack = tracks[countCurrentIndex];
+
+    if (currentTime > countCurrentTime) {
+      audioRef.current.currentTime = 0;
+      return;
+    }
 
     dispatch(setTrackId(prevOrNextTrack.id));
     playTrack();
