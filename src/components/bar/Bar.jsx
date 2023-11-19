@@ -4,7 +4,13 @@ import * as S from "./Bar.styles";
 import { getTrack } from "../../api/api.playlist";
 import ProgressBar from "./progress-bar/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsPlayTrack, setTrack } from "../../store/slices/playList";
+import {
+  setIsPlayTrack,
+  setTrack,
+  setIsShuffle,
+  setShuffledTracks,
+  setTrackId,
+} from "../../store/slices/playList";
 
 export const Bar = () => {
   const [trackIsLoading, setTrackIsLoading] = useState(false);
@@ -17,6 +23,9 @@ export const Bar = () => {
   const isPlayingTracks = useSelector((state) => state.track.isPlayTrack);
   const trackId = useSelector((state) => state.track.trackId);
   const track = useSelector((state) => state.track.track);
+  const tracksList = useSelector((state) => state.track.tracksList);
+  const isShuffle = useSelector((state) => state.track.isShuffle);
+  const shuffledTrack = useSelector((state) => state.track.shuffledTrack);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,14 +37,23 @@ export const Bar = () => {
       .finally(() => setTrackIsLoading(false));
   }, [trackId]);
 
+  const playTrack = () => {
+    dispatch(setIsPlayTrack(true));
+    audioRef.current.play();
+  };
+
+  const pauseTrack = () => {
+    dispatch(setIsPlayTrack(false));
+    audioRef.current.pause();
+  };
+
   const handlePlay = () => {
     if (isPlayingTracks) {
-      dispatch(setIsPlayTrack(false));
-      audioRef.current.pause();
-    } else {
-      dispatch(setIsPlayTrack(true));
-      audioRef.current.play();
+      pauseTrack();
+      return;
     }
+
+    playTrack();
   };
 
   const handleLoop = () => {
@@ -87,8 +105,39 @@ export const Bar = () => {
     audioRef.current.currentTime = event.target.value;
   };
 
-  const handleNextPrevTracks = () => {
-    alert("Еще не реализовано");
+  const handleNextPrevTracks = (event, switchTrack) => {
+    const tracks = isShuffle ? shuffledTrack : tracksList;
+    let currentTrackIndex = tracks.findIndex((track) => track.id === trackId);
+
+    if (
+      (currentTrackIndex === tracksList.length - 1 && switchTrack === "next") ||
+      (currentTrackIndex === 0 && switchTrack === "prev")
+    ) {
+      return;
+    }
+
+    const prevOrNextTrackId =
+      tracks[
+        switchTrack === "next" ? currentTrackIndex + 1 : currentTrackIndex - 1
+      ].id;
+
+    dispatch(setTrackId(prevOrNextTrackId));
+    playTrack();
+  };
+
+  const handleShuffle = () => {
+    if (isShuffle) {
+      dispatch(setIsShuffle(false));
+      setShuffledTracks({});
+      return;
+    }
+
+    dispatch(setIsShuffle(true));
+    const shuffleTracks = Object.values(tracksList).sort(function () {
+      return Math.round(Math.random()) - 0.5;
+    });
+
+    dispatch(setShuffledTracks(shuffleTracks));
   };
 
   return (
@@ -109,7 +158,9 @@ export const Bar = () => {
         <S.BarPlayerBlock>
           <S.Player>
             <S.PlayerControls>
-              <S.PlayerBtnPrev onClick={handleNextPrevTracks}>
+              <S.PlayerBtnPrev
+                onClick={(event) => handleNextPrevTracks(event, "prev")}
+              >
                 <S.PlayerBtnPrevSvg alt="prev">
                   <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                 </S.PlayerBtnPrevSvg>
@@ -123,7 +174,9 @@ export const Bar = () => {
                   ></use>
                 </S.PlayerBtnPlaySvg>
               </S.PlayerBtnPlay>
-              <S.PlayerBtnNext onClick={handleNextPrevTracks}>
+              <S.PlayerBtnNext
+                onClick={(event) => handleNextPrevTracks(event, "next")}
+              >
                 <S.PlayerBtnNextSvg alt="next">
                   <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                 </S.PlayerBtnNextSvg>
@@ -136,8 +189,14 @@ export const Bar = () => {
                   <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
                 </S.PlayerBtnRepeatSvg>
               </S.PlayerBtnRepeat>
-              <S.PlayerBtnShuffle className={"_btn-icon"}>
-                <S.PlayerBtnShuffleSvg alt="shuffle">
+              <S.PlayerBtnShuffle
+                onClick={handleShuffle}
+                className={"_btn-icon"}
+              >
+                <S.PlayerBtnShuffleSvg
+                  alt="shuffle"
+                  className={isShuffle ? "active" : ""}
+                >
                   <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
                 </S.PlayerBtnShuffleSvg>
               </S.PlayerBtnShuffle>

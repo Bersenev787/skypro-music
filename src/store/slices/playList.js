@@ -5,6 +5,8 @@ const initialState = {
   isPlayTrack: false,
   tracksList: [],
   track: {},
+  isShuffle: false,
+  shuffledTrack: [],
 };
 
 export const tracksSlice = createSlice({
@@ -23,10 +25,22 @@ export const tracksSlice = createSlice({
     setTrack: (state, { payload }) => {
       state.track = payload;
     },
+    setIsShuffle: (state, { payload }) => {
+      state.isShuffle = payload;
+    },
+    setShuffledTracks: (state, { payload }) => {
+      state.shuffledTrack = payload;
+    },
   },
 });
 
-export const { setTrackId, setIsPlayTrack, setTrack, setTracksList } =
-  tracksSlice.actions;
+export const {
+  setTrackId,
+  setIsPlayTrack,
+  setTrack,
+  setTracksList,
+  setIsShuffle,
+  setShuffledTracks,
+} = tracksSlice.actions;
 
 export default tracksSlice.reducer;

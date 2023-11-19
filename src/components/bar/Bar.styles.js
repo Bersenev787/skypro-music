@@ -156,6 +156,10 @@ export const PlayerBtnShuffleSvg = styled.svg`
   height: 12px;
   fill: transparent;
   stroke: #696969;
+
+  &.active {
+    stroke: #fff;
+  }
 `;
 
 export const TrackPlay = styled.div`
