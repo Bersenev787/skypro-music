@@ -59,6 +59,31 @@ export const TrackTitleSvg = styled.svg`
   stroke: #4e4e4e;
 `;
 
+export const TrackTitlePulsar = styled.div`
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #b672ff;
+
+  &.active {
+    animation: pulsar ease-in-out 1s infinite;
+
+    @keyframes pulsar {
+      from {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(0.7);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+  }
+`;
+
 export const TrackTitleText = styled.div``;
 
 export const TrackTitleLink = styled.button`

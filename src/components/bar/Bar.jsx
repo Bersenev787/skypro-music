@@ -3,21 +3,25 @@ import { useEffect, useRef, useState } from "react";
 import * as S from "./Bar.styles";
 import { getTrack } from "../../api/api.playlist";
 import ProgressBar from "./progress-bar/ProgressBar";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsPlayTrack, setTrack } from "../../store/slices/playList";
 
-export const Bar = ({ trackId }) => {
+export const Bar = () => {
   const [trackIsLoading, setTrackIsLoading] = useState(false);
-  const [track, setTrack] = useState(null);
   const [addError, setAddError] = useState(null);
-  const [isPlay, setIsPlay] = useState(true);
   const [isLoop, setIsLoop] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [duration, setDuration] = useState(null);
   const [currentTime, setCurrentTime] = useState(null);
   const audioRef = useRef(null);
+  const isPlayingTracks = useSelector((state) => state.track.isPlayTrack);
+  const trackId = useSelector((state) => state.track.trackId);
+  const track = useSelector((state) => state.track.track);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getTrack(trackId)
-      .then((track) => setTrack(track))
+      .then((track) => dispatch(setTrack(track)))
       .catch((error) => {
         setAddError(error.message);
       })
@@ -25,9 +29,13 @@ export const Bar = ({ trackId }) => {
   }, [trackId]);
 
   const handlePlay = () => {
-    setIsPlay((isPlay) => !isPlay);
-
-    isPlay ? audioRef.current.pause() : audioRef.current.play();
+    if (isPlayingTracks) {
+      dispatch(setIsPlayTrack(false));
+      audioRef.current.pause();
+    } else {
+      dispatch(setIsPlayTrack(true));
+      audioRef.current.play();
+    }
   };
 
   const handleLoop = () => {
@@ -55,7 +63,7 @@ export const Bar = ({ trackId }) => {
   }, [isMuted, volume]);
 
   useEffect(() => {
-    if (isPlay) {
+    if (isPlayingTracks) {
       audioRef.current.addEventListener("loadedmetadata", () => {
         const duration = audioRef.current.duration;
         const currentTime = audioRef.current.currentTime;
@@ -72,7 +80,7 @@ export const Bar = ({ trackId }) => {
         }, audioRef.current.duration * 1000);
       });
     }
-  }, [currentTime, duration, isPlay]);
+  }, [currentTime, duration, isPlayingTracks]);
 
   const handleTimeProgress = (event) => {
     setCurrentTime(event.target.value);
@@ -110,7 +118,7 @@ export const Bar = ({ trackId }) => {
                 <S.PlayerBtnPlaySvg alt="play">
                   <use
                     xlinkHref={`img/icon/sprite.svg#icon-${
-                      isPlay ? "pause" : "play"
+                      isPlayingTracks ? "pause" : "play"
                     }`}
                   ></use>
                 </S.PlayerBtnPlaySvg>
