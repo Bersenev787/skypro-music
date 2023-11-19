@@ -80,7 +80,58 @@ export const Bar = () => {
     }
   }, [isMuted, volume]);
 
+  const handleTimeProgress = (event) => {
+    setCurrentTime(event.target.value);
+    audioRef.current.currentTime = event.target.value;
+  };
+
+  const handleNextPrevTracks = (event, switchTrack) => {
+    const tracks = isShuffle ? shuffledTrack : tracksList;
+    let currentTrackIndex = tracks.findIndex((track) => track.id === trackId);
+    const isSwitchNext =
+      currentTrackIndex === tracks.length - 1 && switchTrack === "next";
+    const isSwitchPrev = switchTrack === "prev" && currentTrackIndex === 0;
+    let countCurrentIndex =
+      switchTrack === "next" ? currentTrackIndex + 1 : currentTrackIndex - 1;
+
+    if ((!isShuffle && isSwitchNext) || (!isShuffle && isSwitchPrev)) {
+      return;
+    }
+
+    if (isShuffle && isSwitchNext) {
+      currentTrackIndex = -1;
+    }
+
+    if (isShuffle && isSwitchPrev) {
+      currentTrackIndex = tracks.length;
+    }
+
+    const prevOrNextTrack = tracks[countCurrentIndex];
+
+    dispatch(setTrackId(prevOrNextTrack.id));
+    playTrack();
+  };
+
+  const handleShuffle = () => {
+    if (isShuffle) {
+      dispatch(setIsShuffle(false));
+      setShuffledTracks({});
+      return;
+    }
+
+    dispatch(setIsShuffle(true));
+    const shuffleTracks = Object.values(tracksList).sort(function () {
+      return Math.round(Math.random()) - 0.5;
+    });
+
+    dispatch(setShuffledTracks(shuffleTracks));
+  };
+
   useEffect(() => {
+    if (currentTime === Math.floor(duration)) {
+      handleNextPrevTracks("", "next");
+    }
+
     if (isPlayingTracks) {
       audioRef.current.addEventListener("loadedmetadata", () => {
         const duration = audioRef.current.duration;
@@ -99,46 +150,6 @@ export const Bar = () => {
       });
     }
   }, [currentTime, duration, isPlayingTracks]);
-
-  const handleTimeProgress = (event) => {
-    setCurrentTime(event.target.value);
-    audioRef.current.currentTime = event.target.value;
-  };
-
-  const handleNextPrevTracks = (event, switchTrack) => {
-    const tracks = isShuffle ? shuffledTrack : tracksList;
-    let currentTrackIndex = tracks.findIndex((track) => track.id === trackId);
-
-    if (
-      (currentTrackIndex === tracksList.length - 1 && switchTrack === "next") ||
-      (currentTrackIndex === 0 && switchTrack === "prev")
-    ) {
-      return;
-    }
-
-    const prevOrNextTrackId =
-      tracks[
-        switchTrack === "next" ? currentTrackIndex + 1 : currentTrackIndex - 1
-      ].id;
-
-    dispatch(setTrackId(prevOrNextTrackId));
-    playTrack();
-  };
-
-  const handleShuffle = () => {
-    if (isShuffle) {
-      dispatch(setIsShuffle(false));
-      setShuffledTracks({});
-      return;
-    }
-
-    dispatch(setIsShuffle(true));
-    const shuffleTracks = Object.values(tracksList).sort(function () {
-      return Math.round(Math.random()) - 0.5;
-    });
-
-    dispatch(setShuffledTracks(shuffleTracks));
-  };
 
   return (
     <S.Bar className={trackId && track?.id ? "active" : ""}>
