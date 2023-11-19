@@ -1,9 +1,7 @@
-import { async } from "q";
+import { apiHost } from "./api.constants";
 
 export async function getPlaylist() {
-  const res = await fetch(
-    "https://skypro-music-api.skyeng.tech/catalog/track/all"
-  );
+  const res = await fetch(`${apiHost}/catalog/track/all`);
 
   if (!res.ok) {
     throw new Error("Не удалось загрузить плейлист, попробуйте позже");
@@ -19,9 +17,7 @@ export async function getTrack(id) {
     return;
   }
 
-  const res = await fetch(
-    `https://skypro-music-api.skyeng.tech/catalog/track/${id}`
-  );
+  const res = await fetch(`${apiHost}/catalog/track/${id}`);
 
   if (!res.ok) {
     throw new Error("Не удалось загрузить трек, попробуйте позже");

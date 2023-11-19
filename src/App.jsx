@@ -1,13 +1,18 @@
+import { useState } from "react";
 import { GlobalStyle } from "./App.styles";
+import { UserContext } from "./components/contexts/User";
 import { AppRoutes } from "./routes";
 
 const App = () => {
-  const token = localStorage.getItem("token");
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const token = localStorage.getItem("user");
 
   return (
     <>
-      <AppRoutes token={token} />
-      <GlobalStyle />
+      <UserContext.Provider value={{ user, setUser }}>
+        <AppRoutes token={token} />
+        <GlobalStyle />
+      </UserContext.Provider>
     </>
   );
 };
