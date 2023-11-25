@@ -1,6 +1,8 @@
 import * as S from "./PlaylistItem.styles";
+import { setIsPlayTrack, setTrackId } from "../../../store/slices/playList";
+import { useDispatch, useSelector } from "react-redux";
 
-export const PlaylistItem = ({ data, isLoading, playMusic }) => {
+export const PlaylistItem = ({ data }) => {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -8,18 +10,30 @@ export const PlaylistItem = ({ data, isLoading, playMusic }) => {
 
     return `${minutes}:${formettedSeconds}`;
   };
+  const dispatch = useDispatch();
+  const isPlayingTrack = useSelector((state) => state.track.isPlayTrack);
+  const trackId = useSelector((state) => state.track.trackId);
+
+  const handlePlayTrack = () => {
+    dispatch(setIsPlayTrack(true));
+    dispatch(setTrackId(data.id));
+  };
 
   return (
     <S.PlaylistItem>
       <S.Track>
         <S.TrackTitle>
           <S.TrackTitleImg>
-            <S.TrackTitleSvg alt="music">
-              <use xlinkHref={data.logo}></use>
-            </S.TrackTitleSvg>
+            {trackId === data.id ? (
+              <S.TrackTitlePulsar className={isPlayingTrack ? "active" : ""} />
+            ) : (
+              <S.TrackTitleSvg alt="music">
+                <use xlinkHref={data.logo}></use>
+              </S.TrackTitleSvg>
+            )}
           </S.TrackTitleImg>
           <S.TrackTitleText>
-            <S.TrackTitleLink onClick={() => playMusic(data.id)}>
+            <S.TrackTitleLink onClick={handlePlayTrack}>
               {data.name} <S.TrackTitleSpan></S.TrackTitleSpan>
             </S.TrackTitleLink>
           </S.TrackTitleText>
