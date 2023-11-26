@@ -1,7 +1,7 @@
 import { SkeletonTrackplay } from "../skeletons/SkeletonTrackPlay/SkeletonTrackPlay";
 import { useEffect, useRef, useState } from "react";
 import * as S from "./Bar.styles";
-import { getTrack } from "../../api/api.playlist";
+// import { getTrack } from "../../api/api.playlist";
 import ProgressBar from "./progress-bar/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import {
   setShuffledTracks,
   setTrackId,
 } from "../../store/slices/playList";
+import { useGetTrackQuery } from "../../services/music.api";
 
 export const Bar = () => {
   const [trackIsLoading, setTrackIsLoading] = useState(false);
@@ -27,16 +28,18 @@ export const Bar = () => {
   const isShuffle = useSelector((state) => state.track.isShuffle);
   const shuffledTrack = useSelector((state) => state.track.shuffledTrack);
   const dispatch = useDispatch();
+  const { getTrack, isLoading } = useGetTrackQuery();
 
   useEffect(() => {
-    console.log(tracksList);
-    console.log(trackId);
-    getTrack(trackId)
-      .then((track) => dispatch(setTrack(track)))
-      .catch((error) => {
-        setAddError(error.message);
-      })
-      .finally(() => setTrackIsLoading(false));
+    if (trackId.length) {
+      // console.log(trackId);
+      getTrack(trackId);
+      // .then((track) => dispatch(setTrack(track)))
+      // .catch((error) => {
+      //   setAddError(error.message);
+      // })
+      // .finally(() => setTrackIsLoading(false));
+    }
   }, [trackId]);
 
   const playTrack = () => {
@@ -117,6 +120,7 @@ export const Bar = () => {
     }
 
     dispatch(setTrackId(prevOrNextTrack.id));
+    dispatch(setTrack(prevOrNextTrack));
     playTrack();
   };
 

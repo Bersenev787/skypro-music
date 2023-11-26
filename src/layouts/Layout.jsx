@@ -8,14 +8,9 @@ import { Filter } from "../components/filter/Filter";
 import { useLocation } from "react-router-dom";
 import { Playlist } from "../components/playlist/Playlist";
 import { PlaylistTitle } from "../components/playlist-title/PlaylistTitle";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-export const Layout = ({ children, title }) => {
-  const [trackId, setTrackId] = useState(null);
-  const playMusic = (id) => {
-    setTrackId(id);
-  };
+export const Layout = ({ title }) => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
 
@@ -37,7 +32,7 @@ export const Layout = ({ children, title }) => {
             {isShowFilter && <Filter />}
             <S.CenterBlockContent>
               <PlaylistTitle />
-              <Playlist playMusic={playMusic} />
+              <Playlist />
             </S.CenterBlockContent>
           </S.MainCenterBlock>
           <Sidebar />
