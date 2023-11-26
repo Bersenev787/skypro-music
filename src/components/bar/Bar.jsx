@@ -29,6 +29,7 @@ export const Bar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("next track");
     getTrack(trackId)
       .then((track) => dispatch(setTrack(track)))
       .catch((error) => {
@@ -135,6 +136,7 @@ export const Bar = () => {
 
   useEffect(() => {
     if (currentTime === Math.floor(duration)) {
+      console.log("next");
       handleNextPrevTracks("", "next");
     }
 

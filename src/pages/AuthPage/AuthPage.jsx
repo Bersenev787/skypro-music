@@ -1,8 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
-import { login, register } from "../../api/api.auth";
-import { useUserContext } from "../../components/contexts/User";
+import {
+  useUserLoginMutation,
+  useUserTokenMutation,
+  useUserRegisterMutation,
+} from "../../services/user.api";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/user";
 
 export const AuthPage = ({ isLoginMode = false }) => {
   const [error, setError] = useState(null);
@@ -10,54 +15,70 @@ export const AuthPage = ({ isLoginMode = false }) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useUserContext();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [userLogin, {}] = useUserLoginMutation();
+  const [userToken, {}] = useUserTokenMutation();
+  const [userRegister, { isSuccess }] = useUserRegisterMutation();
 
   const handleLogin = async () => {
     setIsLoading(true);
-    if (!email.length || !password.length) {
-      setError({
-        detail: "Это поле не может быть пустым.",
-      });
-      setIsLoading(false);
-      return;
-    }
-    await login({ email, password })
-      .then((data) => {
-        localStorage.setItem("user", JSON.stringify(data));
-        setUser(JSON.parse(localStorage.getItem("user")));
-        navigate("/");
-        return data;
+    await userToken({ email, password })
+      .unwrap()
+      .then((token) => {
+        localStorage.setItem("token", token.refresh);
+
+        userLogin({ email, password }).then((user) => {
+          localStorage.setItem("user_id", user.data.id);
+
+          dispatch(
+            setUser({
+              email: user.data.email,
+              id: user.data.id,
+              token: token.access,
+              userName: user.data.username,
+              isLogin: true,
+            })
+          );
+          navigate("/");
+        });
       })
       .catch((error) => {
-        setError({ ...JSON.parse(error.message) });
+        throw new Error(error.message);
       })
       .finally(() => setIsLoading(false));
   };
 
   const handleRegister = async () => {
     setIsLoading(true);
-    if (!email.length || !password.length || !username.length) {
-      setError({
-        email: "Это поле не может быть пустым.",
-        password: "Это поле не может быть пустым.",
-        username: "Это поле не может быть пустым.",
-      });
-      setIsLoading(false);
-      return;
-    }
-    await register({ email, password, username })
-      .then((data) => {
-        localStorage.setItem("user", JSON.stringify(data));
-        setUser(JSON.parse(localStorage.getItem("user")));
-        navigate("/");
-        return data;
+    await userRegister({ username, email, password })
+      .then((user) => {
+        localStorage.setItem("user_id", user.data.id);
+
+        dispatch(
+          setUser({
+            email: user.data.email,
+            id: user.data.id,
+            userName: user.data.username,
+            isLogin: true,
+          })
+        );
+        userToken({ email, password })
+          .unwrap()
+          .then((token) => {
+            localStorage.setItem("token", token.refresh);
+            navigate("/");
+          });
       })
       .catch((error) => {
-        setError({ ...JSON.parse(error.message) });
+        throw new Error(error.message);
       })
       .finally(() => setIsLoading(false));
   };
+
+  useEffect(() => {
+    if (isSuccess) navigate("/");
+  }, [isSuccess]);
 
   useEffect(() => {
     setError(null);

@@ -3,6 +3,7 @@ import { Skeleton } from "../skeletons/SkeletonSidebar/Skeleton";
 import * as S from "./Sidebar.styles";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUserContext } from "../contexts/User";
+import { useSelector } from "react-redux";
 
 export const Sidebar = () => {
   const [isLoading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ export const Sidebar = () => {
   const location = useLocation();
   const isShowSidebar = location.pathname === "/";
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
     navigate("/login", { replace: true });
   };
 
@@ -27,12 +28,15 @@ export const Sidebar = () => {
     indy: 3,
   };
 
-  const { user } = useUserContext();
+  const user = useSelector((state) => state.user);
+  console.log("user", user);
+
+  // const { user } = useUserContext();
 
   return (
     <S.Sidebar>
       <S.SidebarPersonal>
-        <S.SidebarPersonalName>{user.username}</S.SidebarPersonalName>
+        <S.SidebarPersonalName>{user.userName}</S.SidebarPersonalName>
         <S.SidebarIcon onClick={logout}>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>

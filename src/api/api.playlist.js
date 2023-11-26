@@ -1,4 +1,4 @@
-import { apiHost } from "./api.constants";
+import { apiHost } from "../services/api.constants";
 
 export async function getPlaylist() {
   const res = await fetch(`${apiHost}/catalog/track/all`);
