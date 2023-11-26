@@ -1,17 +1,5 @@
 import { apiHost } from "../services/api.constants";
 
-export async function getPlaylist() {
-  const res = await fetch(`${apiHost}/catalog/track/all`);
-
-  if (!res.ok) {
-    throw new Error("Не удалось загрузить плейлист, попробуйте позже");
-  }
-
-  const playlist = await res.json();
-
-  return playlist;
-}
-
 export async function getTrack(id) {
   if (!id) {
     return;

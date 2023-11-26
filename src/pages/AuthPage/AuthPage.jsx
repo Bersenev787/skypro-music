@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./AuthPage.styles";
 import { useEffect, useState } from "react";
+
 import {
   useUserLoginMutation,
   useUserTokenMutation,
@@ -21,6 +22,11 @@ export const AuthPage = ({ isLoginMode = false }) => {
   const [userToken, {}] = useUserTokenMutation();
   const [userRegister, { isSuccess }] = useUserRegisterMutation();
 
+  const setUserLocaleStorage = (user) => {
+    localStorage.setItem("user_id", user.data.id);
+    localStorage.setItem("user_name", user.data.username);
+  };
+
   const handleLogin = async () => {
     setIsLoading(true);
     await userToken({ email, password })
@@ -29,7 +35,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
         localStorage.setItem("token", token.refresh);
 
         userLogin({ email, password }).then((user) => {
-          localStorage.setItem("user_id", user.data.id);
+          setUserLocaleStorage(user);
 
           dispatch(
             setUser({
@@ -53,7 +59,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
     setIsLoading(true);
     await userRegister({ username, email, password })
       .then((user) => {
-        localStorage.setItem("user_id", user.data.id);
+        setUserLocaleStorage(user);
 
         dispatch(
           setUser({

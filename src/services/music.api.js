@@ -6,23 +6,23 @@ export const musicApi = createApi({
   reducerPath: "musicApi",
   baseQuery: fetchBaseQuery({
     baseUrl: apiHost,
-    prepareHeaders: (headers, { getState }) => {
-      console.log(getState());
-      const { token } = getState().user;
-      //   console.log(token)
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    // prepareHeaders: (headers, { getState }) => {
+    //   console.log(getState());
+    //   const { token } = getState().user;
+    //   //   console.log(token)
+    //   if (token) {
+    //     headers.set("Authorization", `Bearer ${token}`);
+    //   }
+    //   return headers;
+    // },
   }),
   endpoints: (builder) => ({
-    getFavoriteTracks: builder.query({
-      query: () => `catalog/track/favorite/all/`,
+    getPlaylist: builder.query({
+      query: () => "/catalog/track/all",
     }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetFavoriteTracksQuery } = musicApi;
+export const { useGetPlaylistQuery } = musicApi;

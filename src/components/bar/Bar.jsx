@@ -29,7 +29,8 @@ export const Bar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("next track");
+    console.log(tracksList);
+    console.log(trackId);
     getTrack(trackId)
       .then((track) => dispatch(setTrack(track)))
       .catch((error) => {
