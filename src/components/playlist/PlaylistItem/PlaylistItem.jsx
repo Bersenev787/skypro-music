@@ -19,18 +19,14 @@ export const PlaylistItem = ({ trackData }) => {
   const isPlayingTrack = useSelector((state) => state.track.isPlayTrack);
   const trackId = useSelector((state) => state.track.trackId);
   const tracksList = useSelector((state) => state.track.tracksList);
-  // const { data = {} } = useGetTrackQuery(trackData.id);
+  const { data = {} } = useGetTrackQuery(trackData.id);
 
   const handlePlayTrack = () => {
     dispatch(setIsPlayTrack(true));
-    dispatch(setTrackId(trackData.id));
+    dispatch(setTrackId(data.id));
 
-    const currentTrack = tracksList.filter(
-      (track) => track.id === trackData.id
-    );
+    const currentTrack = tracksList.filter((track) => track.id === data.id);
     dispatch(setTrack(currentTrack));
-    // console.log(data);
-    // getTrack(trackId);
   };
 
   return (
@@ -38,25 +34,25 @@ export const PlaylistItem = ({ trackData }) => {
       <S.Track>
         <S.TrackTitle>
           <S.TrackTitleImg>
-            {trackId === trackData.id ? (
+            {trackId === data.id ? (
               <S.TrackTitlePulsar className={isPlayingTrack ? "active" : ""} />
             ) : (
               <S.TrackTitleSvg alt="music">
-                <use xlinkHref={trackData.logo}></use>
+                <use xlinkHref={data.logo}></use>
               </S.TrackTitleSvg>
             )}
           </S.TrackTitleImg>
           <S.TrackTitleText>
             <S.TrackTitleLink onClick={handlePlayTrack}>
-              {trackData.name} <S.TrackTitleSpan></S.TrackTitleSpan>
+              {data.name} <S.TrackTitleSpan></S.TrackTitleSpan>
             </S.TrackTitleLink>
           </S.TrackTitleText>
         </S.TrackTitle>
         <S.TrackAuthor>
-          <S.TrackAuthorLink href="/">{trackData.author}</S.TrackAuthorLink>
+          <S.TrackAuthorLink href="/">{data.author}</S.TrackAuthorLink>
         </S.TrackAuthor>
         <S.TrackAlbum>
-          <S.TrackAlbumLink href="/">{trackData.album}</S.TrackAlbumLink>
+          <S.TrackAlbumLink href="/">{data.album}</S.TrackAlbumLink>
         </S.TrackAlbum>
 
         <S.TrackTime>
@@ -64,7 +60,7 @@ export const PlaylistItem = ({ trackData }) => {
             <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
           </S.TrackTimeSvg>
           <S.TrackTimeText>
-            {formatTime(trackData.duration_in_seconds)}
+            {formatTime(data.duration_in_seconds)}
           </S.TrackTimeText>
         </S.TrackTime>
       </S.Track>

@@ -5,7 +5,6 @@ import { useGetPlaylistQuery } from "../../services/music.api";
 import { useDispatch } from "react-redux";
 import { setTracksList, setTrack } from "../../store/slices/playList";
 import { useEffect } from "react";
-import { useGetTrackQuery } from "../../services/music.api";
 
 export const Playlist = () => {
   const { data = [], isLoading } = useGetPlaylistQuery();
@@ -14,6 +13,7 @@ export const Playlist = () => {
 
   useEffect(() => {
     dispatch(setTracksList(playlist));
+    console.log(playlist);
   }, [playlist]);
 
   // if (error.error?.length) {
@@ -22,7 +22,7 @@ export const Playlist = () => {
 
   return (
     <S.Playlist>
-      {isLoading ? (
+      {isLoading && playlist.length ? (
         <SkeletonPlaylist />
       ) : (
         playlist?.map((item) => <PlaylistItem key={item.id} trackData={item} />)

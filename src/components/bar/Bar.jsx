@@ -1,7 +1,7 @@
 import { SkeletonTrackplay } from "../skeletons/SkeletonTrackPlay/SkeletonTrackPlay";
 import { useEffect, useRef, useState } from "react";
 import * as S from "./Bar.styles";
-// import { getTrack } from "../../api/api.playlist";
+import { getTrack } from "../../api/api.playlist";
 import ProgressBar from "./progress-bar/ProgressBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,24 +23,12 @@ export const Bar = () => {
   const audioRef = useRef(null);
   const isPlayingTracks = useSelector((state) => state.track.isPlayTrack);
   const trackId = useSelector((state) => state.track.trackId);
-  const track = useSelector((state) => state.track.track);
+  // const track = useSelector((state) => state.track.track);
   const tracksList = useSelector((state) => state.track.tracksList);
   const isShuffle = useSelector((state) => state.track.isShuffle);
   const shuffledTrack = useSelector((state) => state.track.shuffledTrack);
   const dispatch = useDispatch();
-  const { getTrack, isLoading } = useGetTrackQuery();
-
-  useEffect(() => {
-    if (trackId.length) {
-      // console.log(trackId);
-      getTrack(trackId);
-      // .then((track) => dispatch(setTrack(track)))
-      // .catch((error) => {
-      //   setAddError(error.message);
-      // })
-      // .finally(() => setTrackIsLoading(false));
-    }
-  }, [trackId]);
+  const { data = {} } = useGetTrackQuery(trackId);
 
   const playTrack = () => {
     dispatch(setIsPlayTrack(true));
@@ -92,7 +80,7 @@ export const Bar = () => {
 
   const handleNextPrevTracks = (event, switchTrack) => {
     const tracks = isShuffle ? shuffledTrack : tracksList;
-    let currentTrackIndex = tracks.findIndex((track) => track.id === trackId);
+    let currentTrackIndex = tracks.findIndex((track) => track.id === data.id);
     const isSwitchNext =
       currentTrackIndex === tracks.length - 1 && switchTrack === "next";
     const isSwitchPrev = switchTrack === "prev" && currentTrackIndex === 0;
@@ -165,10 +153,10 @@ export const Bar = () => {
   }, [currentTime, duration, isPlayingTracks]);
 
   return (
-    <S.Bar className={trackId && track?.id ? "active" : ""}>
+    <S.Bar className={trackId && data?.id ? "active" : ""}>
       <audio
         ref={audioRef}
-        src={track?.track_file}
+        src={data?.track_file}
         autoPlay
         loop={isLoop}
       ></audio>
@@ -235,17 +223,17 @@ export const Bar = () => {
                 <S.TrackPlayContain>
                   <S.TrackPlayImg>
                     <S.TrackPlaySvg alt="music">
-                      <use xlinkHref={track?.logo}></use>
+                      <use xlinkHref={data?.logo}></use>
                     </S.TrackPlaySvg>
                   </S.TrackPlayImg>
                   <S.TrackPlayAuthor>
                     <S.TrackPlayAuthorLink href="/">
-                      {track?.name}
+                      {data?.name}
                     </S.TrackPlayAuthorLink>
                   </S.TrackPlayAuthor>
                   <S.TrackPlayAlbum>
                     <S.TrackPlayAlbumLink href="/">
-                      {track?.author}
+                      {data?.author}
                     </S.TrackPlayAlbumLink>
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
