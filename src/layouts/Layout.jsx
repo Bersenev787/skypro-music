@@ -6,10 +6,21 @@ import { Footer } from "../components/footer/Footer";
 import { Search } from "../components/search/Search";
 import { Filter } from "../components/filter/Filter";
 import { useLocation } from "react-router-dom";
+import { Playlist } from "../components/playlist/Playlist";
+import { PlaylistTitle } from "../components/playlist-title/PlaylistTitle";
+import { useParams } from "react-router-dom";
 
-export const Layout = ({ children, title }) => {
+export const Layout = ({ title }) => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
+
+  const { id } = useParams();
+  const titleList = {
+    1: "Плейлист дня",
+    2: "100 танцевальных хитов",
+    3: "Инди заряд",
+  };
+
   return (
     <S.Wrapper>
       <S.Container>
@@ -17,9 +28,12 @@ export const Layout = ({ children, title }) => {
           <MainNav />
           <S.MainCenterBlock>
             <Search />
-            <S.CenterBlockH2>{title}</S.CenterBlockH2>
+            <S.CenterBlockH2>{id ? titleList[id] : title}</S.CenterBlockH2>
             {isShowFilter && <Filter />}
-            <S.CenterBlockContent>{children}</S.CenterBlockContent>
+            <S.CenterBlockContent>
+              <PlaylistTitle />
+              <Playlist />
+            </S.CenterBlockContent>
           </S.MainCenterBlock>
           <Sidebar />
         </S.Main>

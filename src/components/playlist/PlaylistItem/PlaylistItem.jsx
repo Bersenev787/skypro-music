@@ -1,8 +1,13 @@
 import * as S from "./PlaylistItem.styles";
-import { setIsPlayTrack, setTrackId } from "../../../store/slices/playList";
+import {
+  setIsPlayTrack,
+  setTrackId,
+  setTrack,
+} from "../../../store/slices/playList";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetTrackQuery } from "../../../services/music.api";
 
-export const PlaylistItem = ({ data }) => {
+export const PlaylistItem = ({ trackData }) => {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -13,10 +18,15 @@ export const PlaylistItem = ({ data }) => {
   const dispatch = useDispatch();
   const isPlayingTrack = useSelector((state) => state.track.isPlayTrack);
   const trackId = useSelector((state) => state.track.trackId);
+  const tracksList = useSelector((state) => state.track.tracksList);
+  const { data = {} } = useGetTrackQuery(trackData.id);
 
   const handlePlayTrack = () => {
     dispatch(setIsPlayTrack(true));
     dispatch(setTrackId(data.id));
+
+    const currentTrack = tracksList.filter((track) => track.id === data.id);
+    dispatch(setTrack(currentTrack));
   };
 
   return (

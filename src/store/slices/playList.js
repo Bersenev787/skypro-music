@@ -23,6 +23,7 @@ export const tracksSlice = createSlice({
       state.tracksList = payload;
     },
     setTrack: (state, { payload }) => {
+      console.log(payload);
       state.track = payload;
     },
     setIsShuffle: (state, { payload }) => {

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "../skeletons/SkeletonSidebar/Skeleton";
 import * as S from "./Sidebar.styles";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUserContext } from "../contexts/User";
 
 export const Sidebar = () => {
   const [isLoading, setLoading] = useState(true);
@@ -17,7 +16,9 @@ export const Sidebar = () => {
   const location = useLocation();
   const isShowSidebar = location.pathname === "/";
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user_name");
+    localStorage.removeItem("user_id");
     navigate("/login", { replace: true });
   };
 
@@ -27,12 +28,12 @@ export const Sidebar = () => {
     indy: 3,
   };
 
-  const { user } = useUserContext();
+  const userName = localStorage.getItem("user_name");
 
   return (
     <S.Sidebar>
       <S.SidebarPersonal>
-        <S.SidebarPersonalName>{user.username}</S.SidebarPersonalName>
+        <S.SidebarPersonalName>{userName}</S.SidebarPersonalName>
         <S.SidebarIcon onClick={logout}>
           <svg alt="logout">
             <use xlinkHref="img/icon/sprite.svg#logout"></use>
