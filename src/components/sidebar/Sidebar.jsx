@@ -16,7 +16,7 @@ export const Sidebar = () => {
   const location = useLocation();
   const isShowSidebar = location.pathname === "/";
   const logout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("accessToken");
     localStorage.removeItem("user_name");
     localStorage.removeItem("user_id");
     navigate("/login", { replace: true });

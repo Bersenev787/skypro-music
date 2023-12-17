@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import {
   useUserLoginMutation,
-  useUserTokenMutation,
+  useUseraccessTokenMutation,
   useUserRegisterMutation,
 } from "../../services/user.api";
 import { useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userLogin, {}] = useUserLoginMutation();
-  const [userToken, {}] = useUserTokenMutation();
+  const [userAccessToken, {}] = useUseraccessTokenMutation();
   const [userRegister, { isSuccess }] = useUserRegisterMutation();
 
   const setUserLocaleStorage = (user) => {
@@ -29,10 +29,10 @@ export const AuthPage = ({ isLoginMode = false }) => {
 
   const handleLogin = async () => {
     setIsLoading(true);
-    await userToken({ email, password })
+    await userAccessToken({ email, password })
       .unwrap()
-      .then((token) => {
-        localStorage.setItem("token", token.refresh);
+      .then((accessToken) => {
+        localStorage.setItem("accessToken", accessToken.refresh);
 
         userLogin({ email, password }).then((user) => {
           setUserLocaleStorage(user);
@@ -41,7 +41,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
             setUser({
               email: user.data.email,
               id: user.data.id,
-              token: token.access,
+              accessaccessToken: accessToken.access,
               userName: user.data.username,
               isLogin: true,
             })
@@ -69,10 +69,13 @@ export const AuthPage = ({ isLoginMode = false }) => {
             isLogin: true,
           })
         );
-        userToken({ email, password })
+        userAccessToken({ email, password })
           .unwrap()
-          .then((token) => {
-            localStorage.setItem("token", token.refresh);
+          .then((accessaccessToken) => {
+            localStorage.setItem(
+              "accessaccessToken",
+              accessaccessToken.refresh
+            );
             navigate("/");
           });
       })

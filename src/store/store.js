@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import trackReducer from "./slices/playList";
 import userReducer from "./slices/user.js";
-import { setupListeners } from "@reduxjs/toolkit/query";
+import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { musicApi } from "../services/music.api.js";
 import { userApi } from "../services/user.api.js";
 

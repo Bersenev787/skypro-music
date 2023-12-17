@@ -5,9 +5,13 @@ import {
   setTrack,
 } from "../../../store/slices/playList";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetTrackQuery } from "../../../services/music.api";
+import {
+  useGetTrackQuery,
+  useAddLikeMutation,
+} from "../../../services/music.api";
 
 export const PlaylistItem = ({ trackData }) => {
+  const [addLike, { isError, isLoading }] = useAddLikeMutation();
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
@@ -27,6 +31,13 @@ export const PlaylistItem = ({ trackData }) => {
 
     const currentTrack = tracksList.filter((track) => track.id === data.id);
     dispatch(setTrack(currentTrack));
+  };
+
+  const handleAddLike = async (id) => {
+    console.log(id);
+    console.log(isLoading);
+    await addLike(id);
+    console.log(isLoading);
   };
 
   return (
@@ -56,7 +67,7 @@ export const PlaylistItem = ({ trackData }) => {
         </S.TrackAlbum>
 
         <S.TrackTime>
-          <S.TrackTimeSvg alt="time">
+          <S.TrackTimeSvg alt="time" onClick={() => handleAddLike(data.id)}>
             <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
           </S.TrackTimeSvg>
           <S.TrackTimeText>

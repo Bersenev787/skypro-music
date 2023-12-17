@@ -5,12 +5,12 @@ import { AppRoutes } from "./routes";
 
 const App = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const token = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("token");
 
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
-        <AppRoutes token={token} />
+        <AppRoutes accessToken={accessToken} />
         <GlobalStyle />
       </UserContext.Provider>
     </>

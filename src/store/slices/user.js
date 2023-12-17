@@ -6,7 +6,7 @@ const initialState = {
   isLogin: false,
   email: null,
   userName: null,
-  token: null,
+  accessToken: null,
   trackId: null,
 };
 
@@ -19,13 +19,13 @@ const userSlice = createSlice({
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.userName = action.payload.userName;
-      state.token = action.payload.token;
+      state.accessToken = action.payload.accessToken;
     },
     removeUser: (state) => {
       state.id = "";
       state.email = "";
       state.userName = "";
-      state.token = "";
+      state.accessToken = "";
     },
     setRefresh: (state, { payload }) => ({
       ...state,

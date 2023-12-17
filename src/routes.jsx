@@ -6,18 +6,21 @@ import { useEffect } from "react";
 import { AuthPage } from "./pages/AuthPage/AuthPage";
 import { Layout } from "./layouts/Layout";
 
-export const AppRoutes = ({ token }) => {
+export const AppRoutes = ({ accessToken }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token) {
+    if (accessToken) {
       navigate("/");
     }
-  }, [token]);
+  }, [accessToken]);
 
   return (
     <Routes>
-      <Route path="/" element={<ProtectedRoute isAllowed={Boolean(token)} />}>
+      <Route
+        path="/"
+        element={<ProtectedRoute isAllowed={Boolean(accessToken)} />}
+      >
         <Route path="/" element={<Layout title="Треки" />} />
         <Route path="favorites" element={<Layout title="Мои треки" />} />
         <Route path="category/:id" element={<Layout />} />

@@ -28,7 +28,7 @@ export const Bar = () => {
   const isShuffle = useSelector((state) => state.track.isShuffle);
   const shuffledTrack = useSelector((state) => state.track.shuffledTrack);
   const dispatch = useDispatch();
-  const { data = {} } = useGetTrackQuery(trackId);
+  const { data: trackData = {} } = useGetTrackQuery(trackId);
 
   const playTrack = () => {
     dispatch(setIsPlayTrack(true));
@@ -80,7 +80,9 @@ export const Bar = () => {
 
   const handleNextPrevTracks = (event, switchTrack) => {
     const tracks = isShuffle ? shuffledTrack : tracksList;
-    let currentTrackIndex = tracks.findIndex((track) => track.id === data.id);
+    let currentTrackIndex = tracks.findIndex(
+      (track) => track.id === trackData.id
+    );
     const isSwitchNext =
       currentTrackIndex === tracks.length - 1 && switchTrack === "next";
     const isSwitchPrev = switchTrack === "prev" && currentTrackIndex === 0;
@@ -153,10 +155,10 @@ export const Bar = () => {
   }, [currentTime, duration, isPlayingTracks]);
 
   return (
-    <S.Bar className={trackId && data?.id ? "active" : ""}>
+    <S.Bar className={trackId && trackData?.id ? "active" : ""}>
       <audio
         ref={audioRef}
-        src={data?.track_file}
+        src={trackData?.track_file}
         autoPlay
         loop={isLoop}
       ></audio>
@@ -223,17 +225,17 @@ export const Bar = () => {
                 <S.TrackPlayContain>
                   <S.TrackPlayImg>
                     <S.TrackPlaySvg alt="music">
-                      <use xlinkHref={data?.logo}></use>
+                      <use xlinkHref={trackData?.logo}></use>
                     </S.TrackPlaySvg>
                   </S.TrackPlayImg>
                   <S.TrackPlayAuthor>
                     <S.TrackPlayAuthorLink href="/">
-                      {data?.name}
+                      {trackData?.name}
                     </S.TrackPlayAuthorLink>
                   </S.TrackPlayAuthor>
                   <S.TrackPlayAlbum>
                     <S.TrackPlayAlbumLink href="/">
-                      {data?.author}
+                      {trackData?.author}
                     </S.TrackPlayAlbumLink>
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>

@@ -1,24 +1,30 @@
 import * as S from "./Playlist.styles";
 import { PlaylistItem } from "./PlaylistItem/PlaylistItem";
 import SkeletonPlaylist from "../skeletons/SkeletonPlaylist/Skeleton";
-import { useGetPlaylistQuery } from "../../services/music.api";
+import {
+  useGetPlaylistQuery,
+  useGetFavoritePlaylistQuery,
+} from "../../services/music.api";
 import { useDispatch } from "react-redux";
 import { setTracksList, setTrack } from "../../store/slices/playList";
 import { useEffect } from "react";
 
 export const Playlist = () => {
-  const { data = [], isLoading } = useGetPlaylistQuery();
-  const playlist = data;
+  const {
+    data: playlist = [],
+    isLoading,
+    error,
+    isError,
+  } = useGetPlaylistQuery();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setTracksList(playlist));
-    console.log(playlist);
   }, [playlist]);
 
-  // if (error.error?.length) {
-  //   return <div>{error.error}</div>;
-  // }
+  if (isError) {
+    return <div>{error.data.detail}</div>;
+  }
 
   return (
     <S.Playlist>
