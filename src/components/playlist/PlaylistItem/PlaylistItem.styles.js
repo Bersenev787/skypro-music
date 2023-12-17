@@ -149,6 +149,16 @@ export const TrackTimeSvg = styled.svg`
   fill: transparent;
   stroke: #696969;
   cursor: pointer;
+
+  &:hover {
+    fill: red;
+    stroke: red;
+  }
+
+  &.active {
+    fill: red;
+    stroke: red;
+  }
 `;
 
 export const TrackTimeText = styled.span`

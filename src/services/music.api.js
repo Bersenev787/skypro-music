@@ -40,6 +40,13 @@ export const musicApi = createApi({
       }),
       invalidatesTags: ["PlayList"],
     }),
+    deleteLike: builder.mutation({
+      query: (id) => ({
+        url: `/catalog/track/${id}/favorite/`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["PlayList"],
+    }),
   }),
 });
 
@@ -50,4 +57,5 @@ export const {
   useGetTrackQuery,
   useGetFavoritePlaylistQuery,
   useAddLikeMutation,
+  useDeleteLikeMutation,
 } = musicApi;

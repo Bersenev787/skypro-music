@@ -186,7 +186,6 @@ export const AuthPage = ({ isLoginMode = false }) => {
                 disabled={isLoading || error}
                 onClick={handleRegister}
               >
-                {username.length}
                 Зарегистрироваться
               </S.PrimaryButton>
             </S.Buttons>

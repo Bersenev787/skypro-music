@@ -24,11 +24,10 @@ export const Layout = ({ title }) => {
     2: "100 танцевальных хитов",
     3: "Инди заряд",
   };
+
   const token = localStorage.getItem("refreshToken");
   useEffect(() => {
-    console.log(token);
     refreshToken({ refreshToken: token }).then(({ data }) => {
-      console.log(data);
       localStorage.setItem("accessToken", data.access);
     });
   }, [token]);
