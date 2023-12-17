@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { apiHost, apiCatalog } from "./api.constants";
 
-const accessToken = localStorage.getItem("accessToken");
+const access = localStorage.getItem("refreshToken");
 
 // Define a service using a base URL and expected endpoints
 export const musicApi = createApi({
@@ -10,9 +10,9 @@ export const musicApi = createApi({
     baseUrl: apiHost,
     tagTypes: ["PlayList"],
     prepareHeaders: (headers) => {
-      console.log(accessToken);
-      if (accessToken) {
-        headers.set("authorization", `Bearer ${accessToken}`);
+      console.log(access);
+      if (access) {
+        headers.set("authorization", `Bearer ${access}`);
       }
       return headers;
     },

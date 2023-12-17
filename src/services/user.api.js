@@ -28,11 +28,14 @@ export const userApi = createApi({
         body,
       }),
     }),
-    useraccessTokenRefresh: builder.mutation({
+    userAccessTokenRefresh: builder.mutation({
       query: (body) => ({
-        url: "user/token/refresh",
+        url: "user/token/refresh/",
         method: "POST",
-        body,
+        body: JSON.stringify({ refresh: body.refreshToken }),
+        headers: {
+          "Content-Type": "application/json", // Указываем тип контента
+        },
       }),
     }),
   }),
@@ -42,5 +45,5 @@ export const {
   useUserRegisterMutation,
   useUserLoginMutation,
   useUserAccessTokenMutation,
-  useUseraccessTokenRefreshMutation,
+  useUserAccessTokenRefreshMutation,
 } = userApi;

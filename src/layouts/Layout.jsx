@@ -9,10 +9,14 @@ import { useLocation } from "react-router-dom";
 import { Playlist } from "../components/playlist/Playlist";
 import { PlaylistTitle } from "../components/playlist-title/PlaylistTitle";
 import { useParams } from "react-router-dom";
+import { useUserAccessTokenRefreshMutation } from "../services/user.api";
+import { useEffect } from "react";
 
 export const Layout = ({ title }) => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
+
+  const [refreshToken, {}] = useUserAccessTokenRefreshMutation();
 
   const { id } = useParams();
   const titleList = {
@@ -20,6 +24,14 @@ export const Layout = ({ title }) => {
     2: "100 танцевальных хитов",
     3: "Инди заряд",
   };
+  const token = localStorage.getItem("refreshToken");
+  useEffect(() => {
+    console.log(token);
+    refreshToken({ refreshToken: token }).then(({ data }) => {
+      console.log(data);
+      localStorage.setItem("accessToken", data.access);
+    });
+  }, [token]);
 
   return (
     <S.Wrapper>

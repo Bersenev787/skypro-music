@@ -32,7 +32,8 @@ export const AuthPage = ({ isLoginMode = false }) => {
     await userAccessToken({ email, password })
       .unwrap()
       .then((accessToken) => {
-        localStorage.setItem("accessToken", accessToken.refresh);
+        localStorage.setItem("accessToken", accessToken.access);
+        localStorage.setItem("refreshToken", accessToken.refresh);
 
         userLogin({ email, password }).then((user) => {
           setUserLocaleStorage(user);
@@ -72,7 +73,8 @@ export const AuthPage = ({ isLoginMode = false }) => {
         userAccessToken({ email, password })
           .unwrap()
           .then((accessToken) => {
-            localStorage.setItem("accessToken", accessToken.refresh);
+            localStorage.setItem("accessToken", accessToken.access);
+            localStorage.setItem("refreshToken", accessToken.refresh);
             navigate("/");
           });
       })
