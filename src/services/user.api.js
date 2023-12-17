@@ -21,7 +21,7 @@ export const userApi = createApi({
         body,
       }),
     }),
-    useraccessToken: builder.mutation({
+    userAccessToken: builder.mutation({
       query: (body) => ({
         url: "user/token/",
         method: "POST",
@@ -41,6 +41,6 @@ export const userApi = createApi({
 export const {
   useUserRegisterMutation,
   useUserLoginMutation,
-  useUseraccessTokenMutation,
+  useUserAccessTokenMutation,
   useUseraccessTokenRefreshMutation,
 } = userApi;

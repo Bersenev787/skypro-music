@@ -20,7 +20,7 @@ export const MainNav = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("accessaccessToken");
+    localStorage.removeItem("accessToken");
     localStorage.removeItem("user_name");
     localStorage.removeItem("user_id");
     navigate("/login", { replace: true });

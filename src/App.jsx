@@ -5,7 +5,7 @@ import { AppRoutes } from "./routes";
 
 const App = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const accessToken = localStorage.getItem("token");
+  const accessToken = localStorage.getItem("accessToken");
 
   return (
     <>

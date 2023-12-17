@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import {
   useUserLoginMutation,
-  useUseraccessTokenMutation,
+  useUserAccessTokenMutation,
   useUserRegisterMutation,
 } from "../../services/user.api";
 import { useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userLogin, {}] = useUserLoginMutation();
-  const [userAccessToken, {}] = useUseraccessTokenMutation();
+  const [userAccessToken, {}] = useUserAccessTokenMutation();
   const [userRegister, { isSuccess }] = useUserRegisterMutation();
 
   const setUserLocaleStorage = (user) => {
@@ -41,7 +41,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
             setUser({
               email: user.data.email,
               id: user.data.id,
-              accessaccessToken: accessToken.access,
+              accessToken: accessToken.token,
               userName: user.data.username,
               isLogin: true,
             })
@@ -71,11 +71,8 @@ export const AuthPage = ({ isLoginMode = false }) => {
         );
         userAccessToken({ email, password })
           .unwrap()
-          .then((accessaccessToken) => {
-            localStorage.setItem(
-              "accessaccessToken",
-              accessaccessToken.refresh
-            );
+          .then((accessToken) => {
+            localStorage.setItem("accessToken", accessToken.refresh);
             navigate("/");
           });
       })
@@ -187,6 +184,7 @@ export const AuthPage = ({ isLoginMode = false }) => {
                 disabled={isLoading || error}
                 onClick={handleRegister}
               >
+                {username.length}
                 Зарегистрироваться
               </S.PrimaryButton>
             </S.Buttons>
