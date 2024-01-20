@@ -6,8 +6,9 @@ import { useEffect } from "react";
 import { AuthPage } from "./pages/AuthPage/AuthPage";
 import { Layout } from "./layouts/Layout";
 
-export const AppRoutes = ({ accessToken }) => {
+export const AppRoutes = () => {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (accessToken) {

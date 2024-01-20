@@ -20,7 +20,6 @@ export const tracksSlice = createSlice({
       state.isPlayTrack = payload;
     },
     setTracksList: (state, { payload }) => {
-      console.log("setTracksList", payload);
       state.tracksList = payload;
     },
     setTrack: (state, { payload }) => {

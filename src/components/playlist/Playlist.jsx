@@ -30,10 +30,6 @@ export const Playlist = () => {
     : isLoadingPlaylist;
 
   useEffect(() => {
-    if (tracks.length) {
-      console.log("playlist", tracks.length);
-    }
-
     dispatch(setTracksList(tracks));
   }, [isLoadingPlaylist, isLoadingFavoritePlaylist]);
 
