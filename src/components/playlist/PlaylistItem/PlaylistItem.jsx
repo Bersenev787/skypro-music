@@ -26,10 +26,11 @@ export const PlaylistItem = ({ trackData }) => {
   const isPlayingTrack = useSelector((state) => state.track.isPlayTrack);
   const trackId = useSelector((state) => state.track.trackId);
   const tracksList = useSelector((state) => state.track.tracksList);
-  const userName = localStorage.getItem("user_name");
+  const userId = localStorage.getItem("user_id");
   const isLikedTrack = trackData?.stared_user?.find(
-    (item) => item.username === userName
+    (user) => user.id === Number(userId)
   );
+
   const [isLiked, setLike] = useState(isLikedTrack);
 
   const handlePlayTrack = () => {
@@ -45,11 +46,11 @@ export const PlaylistItem = ({ trackData }) => {
   const handleToggleLike = async (id) => {
     if (isLiked) {
       setLike(true);
-      await deleteLike(id);
+      await deleteLike(id).unwrap();
       return;
     }
     setLike(false);
-    await addLike(id);
+    await addLike(id).unwrap();
   };
 
   useEffect(() => {
