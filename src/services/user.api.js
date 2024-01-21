@@ -3,6 +3,7 @@ import { apiHost } from "./api.constants";
 
 export const userApi = createApi({
   reducerPath: "userApi",
+  tagTypes: ["PlayList", "FavoritePlayList"],
   baseQuery: fetchBaseQuery({
     baseUrl: apiHost,
   }),
@@ -26,6 +27,7 @@ export const userApi = createApi({
         url: "user/token/",
         method: "POST",
         body,
+        invalidatesTags: [{ type: "PlayList", id: "LIST" }],
       }),
     }),
     userAccessTokenRefresh: builder.mutation({
@@ -36,6 +38,7 @@ export const userApi = createApi({
         headers: {
           "Content-Type": "application/json", // Указываем тип контента
         },
+        invalidatesTags: [{ type: "PlayList", id: "LIST" }],
       }),
     }),
   }),

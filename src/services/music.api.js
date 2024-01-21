@@ -31,21 +31,28 @@ export const musicApi = createApi({
       query: (id) => `${apiCatalog}/${id}`,
     }),
     getFavoritePlaylist: builder.query({
-      query: () => `${apiCatalog}/favorite/all`,
+      query: () => `${apiCatalog}/favorite/all/`,
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: "FavoritePlayList", id })),
+              { type: "FavoritePlayList", id: "FAVORITE_PLAY_LIST" },
+            ]
+          : [{ type: "FavoritePlayList", id: "FAVORITE_PLAY_LIST" }],
     }),
     addLike: builder.mutation({
       query: (id) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: "POST",
       }),
-      invalidatesTags: ["PlayList"],
+      invalidatesTags: ["PlayList", "FavoritePlayList"],
     }),
     deleteLike: builder.mutation({
       query: (id) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: "DELETE",
       }),
-      invalidatesTags: ["PlayList"],
+      invalidatesTags: ["PlayList", "FavoritePlayList"],
     }),
   }),
 });

@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import { useUserAccessTokenRefreshMutation } from "../services/user.api";
 import { useEffect } from "react";
 
-export const Layout = ({ title }) => {
+export const Layout = ({ children, title }) => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
 
@@ -43,7 +43,7 @@ export const Layout = ({ title }) => {
             {isShowFilter && <Filter />}
             <S.CenterBlockContent>
               <PlaylistTitle />
-              <Playlist />
+              {children}
             </S.CenterBlockContent>
           </S.MainCenterBlock>
           <Sidebar />

@@ -2,28 +2,26 @@ import { Routes, Route } from "react-router";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { ProtectedRoute } from "./components/protected-route/ProtectedRoute";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AuthPage } from "./pages/AuthPage/AuthPage";
 import { Layout } from "./layouts/Layout";
+import { MainPage } from "./pages/main-page/MainPage";
+import { FavoritePage } from "./pages/favorite-page/FavoritePage";
 
 export const AppRoutes = () => {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
+  const [token, setToken] = useState(accessToken);
 
   useEffect(() => {
-    if (accessToken) {
-      navigate("/");
-    }
-  }, [accessToken]);
+    setToken(accessToken);
+  }, [token]);
 
   return (
     <Routes>
-      <Route
-        path="/"
-        element={<ProtectedRoute isAllowed={Boolean(accessToken)} />}
-      >
-        <Route path="/" element={<Layout title="Треки" />} />
-        <Route path="favorites" element={<Layout title="Мои треки" />} />
+      <Route path="/" element={<ProtectedRoute isAllowed={Boolean(token)} />}>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/favorites" element={<FavoritePage title="Мои треки" />} />
         <Route path="category/:id" element={<Layout />} />
       </Route>
       <Route

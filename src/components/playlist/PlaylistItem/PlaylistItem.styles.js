@@ -159,6 +159,11 @@ export const TrackTimeSvg = styled.svg`
     fill: red;
     stroke: red;
   }
+
+  &.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 `;
 
 export const TrackTimeText = styled.span`
