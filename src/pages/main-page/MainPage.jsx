@@ -13,16 +13,16 @@ export const MainPage = () => {
   useEffect(() => {
     dispatch(setTracksList(data));
     setTrackLoading(isLoading);
-  }, [isTracksLoading, isLoading]);
+  }, [isTracksLoading, isLoading, dispatch, data]);
 
   if (isError) {
-    return <div>{error.data.detail}</div>;
+    return <div>{error.data?.detail}</div>;
   }
 
   return (
     <Layout title="Треки">
       {isError ? (
-        <div>{error.data.detail}</div>
+        <div>{error.data?.detail}</div>
       ) : (
         <Playlist trackList={data} isLoading={isTracksLoading} />
       )}

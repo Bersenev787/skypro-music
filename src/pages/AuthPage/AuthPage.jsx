@@ -18,8 +18,8 @@ export const AuthPage = ({ isLoginMode = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userLogin, {}] = useUserLoginMutation();
-  const [userAccessToken, {}] = useUserAccessTokenMutation();
+  const [userLogin] = useUserLoginMutation();
+  const [userAccessToken] = useUserAccessTokenMutation();
   const [userRegister, { isSuccess }] = useUserRegisterMutation();
 
   const setUserLocaleStorage = (user) => {
@@ -32,8 +32,8 @@ export const AuthPage = ({ isLoginMode = false }) => {
     await userAccessToken({ email, password })
       .unwrap()
       .then((accessToken) => {
-        localStorage.setItem("accessToken", accessToken.access);
-        localStorage.setItem("refreshToken", accessToken.refresh);
+        localStorage.setItem("access", accessToken.access);
+        localStorage.setItem("refresh", accessToken.refresh);
 
         userLogin({ email, password }).then((user) => {
           setUserLocaleStorage(user);
@@ -42,7 +42,8 @@ export const AuthPage = ({ isLoginMode = false }) => {
             setUser({
               email: user.data.email,
               id: user.data.id,
-              accessToken: accessToken.token,
+              access: accessToken.access,
+              refresh: accessToken.refresh,
               userName: user.data.username,
               isLogin: true,
             })
@@ -73,8 +74,8 @@ export const AuthPage = ({ isLoginMode = false }) => {
         userAccessToken({ email, password })
           .unwrap()
           .then((accessToken) => {
-            localStorage.setItem("accessToken", accessToken.access);
-            localStorage.setItem("refreshToken", accessToken.refresh);
+            localStorage.setItem("access", accessToken.access);
+            localStorage.setItem("refresh", accessToken.refresh);
             navigate("/");
           });
       })

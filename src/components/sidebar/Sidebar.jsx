@@ -16,10 +16,11 @@ export const Sidebar = () => {
   const location = useLocation();
   const isShowSidebar = location.pathname === "/";
   const logout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
     localStorage.removeItem("user_name");
     localStorage.removeItem("user_id");
+    localStorage.removeItem("user");
     navigate("/login", { replace: true });
   };
 

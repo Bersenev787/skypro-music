@@ -20,10 +20,11 @@ export const MainNav = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
     localStorage.removeItem("user_name");
     localStorage.removeItem("user_id");
+    localStorage.removeItem("user");
     navigate("/login", { replace: true });
   };
 

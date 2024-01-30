@@ -16,21 +16,12 @@ export const Layout = ({ children, title }) => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
 
-  const [refreshToken, {}] = useUserAccessTokenRefreshMutation();
-
   const { id } = useParams();
   const titleList = {
     1: "Плейлист дня",
     2: "100 танцевальных хитов",
     3: "Инди заряд",
   };
-
-  const token = localStorage.getItem("refreshToken");
-  useEffect(() => {
-    refreshToken({ refreshToken: token }).then(({ data }) => {
-      localStorage.setItem("accessToken", data.access);
-    });
-  }, [token]);
 
   return (
     <S.Wrapper>

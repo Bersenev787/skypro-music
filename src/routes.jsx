@@ -9,17 +9,16 @@ import { MainPage } from "./pages/main-page/MainPage";
 import { FavoritePage } from "./pages/favorite-page/FavoritePage";
 
 export const AppRoutes = () => {
-  const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
-  const [token, setToken] = useState(accessToken);
+  const access = localStorage.getItem("access");
+  const [token, setToken] = useState(access);
 
   useEffect(() => {
-    setToken(accessToken);
+    setToken(access);
   }, [token]);
 
   return (
     <Routes>
-      <Route path="/" element={<ProtectedRoute isAllowed={Boolean(token)} />}>
+      <Route element={<ProtectedRoute isAllowed={Boolean(access)} />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/favorites" element={<FavoritePage title="Мои треки" />} />
         <Route path="category/:id" element={<Layout />} />

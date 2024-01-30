@@ -1,21 +1,66 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { apiHost, apiCatalog } from "./api.constants";
+import { setUser } from "../store/slices/user";
 
-const access = localStorage.getItem("accessToken");
+const baseQueryWithReauth = async (args, api, extraOptions) => {
+  const baseQuery = fetchBaseQuery({
+    baseUrl: apiHost,
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().user.access;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  });
+
+  const result = await baseQuery(args, api, extraOptions);
+  // console.debug('Результат первого запроса', { result })
+
+  if (result?.error?.status !== 401) {
+    return result;
+  }
+
+  const forceLogout = () => {
+    api.dispatch(setUser(null));
+    window.location.navigate("/login");
+  };
+
+  const { user } = api.getState();
+
+  if (!user.refresh) {
+    return forceLogout();
+  }
+
+  const refreshResult = await baseQuery(
+    {
+      url: "/user/token/refresh/",
+      method: "POST",
+      body: {
+        refresh: user.refresh,
+      },
+    },
+    api,
+    extraOptions
+  );
+
+  if (!refreshResult.data.access) {
+    return forceLogout();
+  }
+
+  api.dispatch(setUser({ ...user, access: refreshResult.data.access }));
+  const retryResult = await baseQuery(args, api, extraOptions);
+  if (retryResult?.error?.status === 401) {
+    return forceLogout();
+  }
+  return retryResult;
+};
 
 // Define a service using a base URL and expected endpoints
 export const musicApi = createApi({
   reducerPath: "musicApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: apiHost,
-    tagTypes: ["PlayList"],
-    prepareHeaders: (headers) => {
-      if (access) {
-        headers.set("authorization", `Bearer ${access}`);
-      }
-      return headers;
-    },
-  }),
+  tagTypes: ["PlayList"],
+  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     getPlaylist: builder.query({
       query: () => `${apiCatalog}/all`,

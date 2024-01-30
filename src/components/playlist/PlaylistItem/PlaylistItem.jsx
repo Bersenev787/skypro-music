@@ -9,17 +9,10 @@ import {
   useAddLikeMutation,
   useDeleteLikeMutation,
 } from "../../../services/music.api";
-import { useUserAccessTokenRefreshMutation } from "../../../services/user.api";
 import { useEffect } from "react";
 import { useState } from "react";
 
 export const PlaylistItem = ({ trackData }) => {
-  const {
-    data: refreshTokenData,
-    isSuccess,
-    isError,
-    error,
-  } = useUserAccessTokenRefreshMutation();
   const [addLike] = useAddLikeMutation();
   const [deleteLike] = useDeleteLikeMutation();
   const formatTime = (time) => {
@@ -38,7 +31,6 @@ export const PlaylistItem = ({ trackData }) => {
     (user) => user.id === Number(userId)
   );
   const [isLiked, setLike] = useState(isLikedTrack);
-  const token = localStorage.getItem("refreshToken");
 
   const handlePlayTrack = () => {
     dispatch(setIsPlayTrack(true));
@@ -47,17 +39,18 @@ export const PlaylistItem = ({ trackData }) => {
     const currentTrack = tracksList.filter(
       (track) => track.id === trackData.id
     );
-    dispatch(setTrack(currentTrack));
+
+    dispatch(setTrack(...currentTrack));
   };
 
   const handleToggleLike = async (id) => {
     if (isLiked) {
       setLike(true);
-      await deleteLike(id).unwrap();
+      await deleteLike(id);
       return;
     }
     setLike(false);
-    await addLike(id).unwrap();
+    await addLike(id);
   };
 
   useEffect(() => {

@@ -34,7 +34,7 @@ export const userApi = createApi({
       query: (body) => ({
         url: "user/token/refresh/",
         method: "POST",
-        body: JSON.stringify({ refresh: body.refreshToken }),
+        body: JSON.stringify({ refresh: body.refresh }),
         headers: {
           "Content-Type": "application/json", // Указываем тип контента
         },

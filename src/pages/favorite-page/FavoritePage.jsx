@@ -33,6 +33,9 @@ export const FavoritePage = () => {
     tracks,
     allTracks,
     favoriteTracksList,
+    data,
+    dispatch,
+    userStorageId,
   ]);
 
   if (isError) {
@@ -44,7 +47,7 @@ export const FavoritePage = () => {
       {isError ? (
         <div>{error.data.detail}</div>
       ) : (
-        <Playlist trackList={favoriteTracksList} isLoading={isTracksLoading} />
+        <Playlist trackList={tracks} isLoading={isTracksLoading} />
       )}
     </Layout>
   );

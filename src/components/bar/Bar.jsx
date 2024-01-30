@@ -109,7 +109,7 @@ export const Bar = () => {
       return;
     }
 
-    dispatch(setTrackId(prevOrNextTrack.id));
+    dispatch(setTrackId(prevOrNextTrack?.id));
     dispatch(setTrack(prevOrNextTrack));
     playTrack();
   };
@@ -131,28 +131,26 @@ export const Bar = () => {
 
   useEffect(() => {
     if (currentTime === Math.floor(duration)) {
-      console.log("next");
       handleNextPrevTracks("", "next");
     }
 
     if (isPlayingTracks) {
       audioRef.current.addEventListener("loadedmetadata", () => {
-        const duration = audioRef.current.duration;
-        const currentTime = audioRef.current.currentTime;
-
+        const duration = audioRef.current?.duration;
+        const currentTime = audioRef.current?.currentTime;
         setDuration(duration);
         setCurrentTime(currentTime);
 
         const interval = setInterval(() => {
-          setCurrentTime(Math.floor(audioRef.current.currentTime));
+          setCurrentTime(Math.floor(audioRef.current?.currentTime));
         }, 1000);
 
         setTimeout(() => {
           clearInterval(interval);
-        }, audioRef.current.duration * 1000);
+        }, audioRef.current?.duration * 1000);
       });
     }
-  }, [currentTime, duration, isPlayingTracks]);
+  }, [currentTime, duration, handleNextPrevTracks, isPlayingTracks]);
 
   return (
     <S.Bar className={trackId && trackData?.id ? "active" : ""}>
@@ -240,7 +238,6 @@ export const Bar = () => {
                   </S.TrackPlayAlbum>
                 </S.TrackPlayContain>
               )}
-
               <S.TrackPlayLikeDis>
                 <S.TrackPlayLike className={"_btn-icon"}>
                   <S.TrackPlayLikeSvg alt="like">
