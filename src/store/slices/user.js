@@ -26,12 +26,14 @@ const userSlice = createSlice({
   initialState: getAuthFromLocalStorage() ?? initialState,
   reducers: {
     setUser: (state, action) => {
+      const payload = action.payload ?? initialState;
+
       state.isLogin = true;
-      state.id = action.payload.id;
-      state.email = action.payload.email;
-      state.userName = action.payload.userName;
-      state.access = action.payload.access;
-      state.refresh = action.payload.refresh;
+      state.id = payload.id;
+      state.email = payload.email;
+      state.userName = payload.userName;
+      state.access = payload.access;
+      state.refresh = payload.refresh;
 
       localStorage.setItem("user", JSON.stringify(state));
     },

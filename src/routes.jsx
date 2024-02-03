@@ -14,14 +14,19 @@ export const AppRoutes = () => {
 
   useEffect(() => {
     setToken(access);
-  }, [token]);
+  }, [token, access]);
 
   return (
     <Routes>
       <Route element={<ProtectedRoute isAllowed={Boolean(access)} />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/favorites" element={<FavoritePage title="Мои треки" />} />
-        <Route path="category/:id" element={<Layout />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route
+            path="/favorites"
+            element={<FavoritePage title="Мои треки" />}
+          />
+          <Route path="category/:id" element={<MainPage />} />
+        </Route>
       </Route>
       <Route
         path="/login"

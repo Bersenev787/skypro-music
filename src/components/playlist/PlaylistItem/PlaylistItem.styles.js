@@ -151,13 +151,13 @@ export const TrackTimeSvg = styled.svg`
   cursor: pointer;
 
   &:hover {
-    fill: red;
-    stroke: red;
+    fill: #b672ff;
+    stroke: #b672ff;
   }
 
   &.active {
-    fill: red;
-    stroke: red;
+    fill: #b672ff;
+    stroke: #b672ff;
   }
 
   &.disabled {

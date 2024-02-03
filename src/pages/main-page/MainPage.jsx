@@ -16,16 +16,18 @@ export const MainPage = () => {
   }, [isTracksLoading, isLoading, dispatch, data]);
 
   if (isError) {
-    return <div>{error.data?.detail}</div>;
+    return <div>{error?.detail}</div>;
   }
 
   return (
-    <Layout title="Треки">
+    // <Layout title="Треки">
+    <>
       {isError ? (
-        <div>{error.data?.detail}</div>
+        <div>{error?.detail}</div>
       ) : (
         <Playlist trackList={data} isLoading={isTracksLoading} />
       )}
-    </Layout>
+    </>
+    // </Layout>
   );
 };

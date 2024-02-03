@@ -15,7 +15,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   });
 
   const result = await baseQuery(args, api, extraOptions);
-  // console.debug('Результат первого запроса', { result })
 
   if (result?.error?.status !== 401) {
     return result;
@@ -23,15 +22,16 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   const forceLogout = () => {
     api.dispatch(setUser(null));
-    window.location.navigate("/login");
+    console.log(window);
+    window.location.reload("/login");
   };
 
   const { user } = api.getState();
-
   if (!user.refresh) {
     return forceLogout();
   }
 
+  console.log("refreshResult.data.access");
   const refreshResult = await baseQuery(
     {
       url: "/user/token/refresh/",
@@ -44,7 +44,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     extraOptions
   );
 
-  if (!refreshResult.data.access) {
+  if (refreshResult?.error?.status === 401) {
     return forceLogout();
   }
 

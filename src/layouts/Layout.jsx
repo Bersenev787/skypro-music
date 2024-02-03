@@ -5,16 +5,15 @@ import { Bar } from "../components/bar/Bar";
 import { Footer } from "../components/footer/Footer";
 import { Search } from "../components/search/Search";
 import { Filter } from "../components/filter/Filter";
-import { useLocation } from "react-router-dom";
-import { Playlist } from "../components/playlist/Playlist";
+import { Outlet, useLocation } from "react-router-dom";
 import { PlaylistTitle } from "../components/playlist-title/PlaylistTitle";
 import { useParams } from "react-router-dom";
-import { useUserAccessTokenRefreshMutation } from "../services/user.api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export const Layout = ({ children, title }) => {
+export const Layout = () => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
+  const [title, setTitle] = useState("");
 
   const { id } = useParams();
   const titleList = {
@@ -22,6 +21,16 @@ export const Layout = ({ children, title }) => {
     2: "100 танцевальных хитов",
     3: "Инди заряд",
   };
+
+  useEffect(() => {
+    if (location.pathname === "/favorites") {
+      setTitle("Мои треки");
+    }
+
+    if (location.pathname === "/") {
+      setTitle("Треки");
+    }
+  }, [title, location.pathname]);
 
   return (
     <S.Wrapper>
@@ -34,7 +43,7 @@ export const Layout = ({ children, title }) => {
             {isShowFilter && <Filter />}
             <S.CenterBlockContent>
               <PlaylistTitle />
-              {children}
+              <Outlet />
             </S.CenterBlockContent>
           </S.MainCenterBlock>
           <Sidebar />

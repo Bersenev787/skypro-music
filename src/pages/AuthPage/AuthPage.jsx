@@ -18,9 +18,9 @@ export const AuthPage = ({ isLoginMode = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [userLogin] = useUserLoginMutation();
+  const [userLogin, { isSuccessLogin }] = useUserLoginMutation();
   const [userAccessToken] = useUserAccessTokenMutation();
-  const [userRegister, { isSuccess }] = useUserRegisterMutation();
+  const [userRegister, { isSuccessRegister }] = useUserRegisterMutation();
 
   const setUserLocaleStorage = (user) => {
     localStorage.setItem("user_id", user.data.id);
@@ -48,8 +48,11 @@ export const AuthPage = ({ isLoginMode = false }) => {
               isLogin: true,
             })
           );
-          navigate("/");
+          navigate("/", { replace: true });
         });
+      })
+      .then(() => {
+        navigate("/", { replace: true });
       })
       .catch((error) => {
         throw new Error(error.message);
@@ -76,18 +79,26 @@ export const AuthPage = ({ isLoginMode = false }) => {
           .then((accessToken) => {
             localStorage.setItem("access", accessToken.access);
             localStorage.setItem("refresh", accessToken.refresh);
-            navigate("/");
+            dispatch(
+              setUser({
+                email: user.data.email,
+                id: user.data.id,
+                access: accessToken.access,
+                refresh: accessToken.refresh,
+                userName: user.data.username,
+                isLogin: true,
+              })
+            );
           });
+      })
+      .then(() => {
+        navigate("/", { replace: true });
       })
       .catch((error) => {
         throw new Error(error.message);
       })
       .finally(() => setIsLoading(false));
   };
-
-  useEffect(() => {
-    if (isSuccess) navigate("/");
-  }, [isSuccess]);
 
   useEffect(() => {
     setError(null);

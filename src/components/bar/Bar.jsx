@@ -150,7 +150,7 @@ export const Bar = () => {
         }, audioRef.current?.duration * 1000);
       });
     }
-  }, [currentTime, duration, handleNextPrevTracks, isPlayingTracks]);
+  }, [currentTime, duration, isPlayingTracks]);
 
   return (
     <S.Bar className={trackId && trackData?.id ? "active" : ""}>

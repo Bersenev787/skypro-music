@@ -39,16 +39,19 @@ export const FavoritePage = () => {
   ]);
 
   if (isError) {
-    return <div>{error.data.detail}</div>;
+    return <div>{error.detail}</div>;
   }
 
   return (
-    <Layout title="Мои треки">
+    // <Layout title="Мои треки">
+    <>
       {isError ? (
-        <div>{error.data.detail}</div>
+        <div>{error.detail}</div>
       ) : (
         <Playlist trackList={tracks} isLoading={isTracksLoading} />
       )}
-    </Layout>
+    </>
+
+    // </Layout>
   );
 };

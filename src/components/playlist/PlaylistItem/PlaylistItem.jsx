@@ -87,7 +87,7 @@ export const PlaylistItem = ({ trackData }) => {
           <S.TrackTimeSvg
             alt="time"
             onClick={() => handleToggleLike(trackData.id)}
-            className={isLiked && "active"}
+            className={(isLiked || isLikedTrack) && "active"}
           >
             <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
           </S.TrackTimeSvg>
