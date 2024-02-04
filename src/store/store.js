@@ -1,19 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit";
-import thunk from "redux-thunk";
-import trackReducer from "./slices/playList";
-import userReducer from "./slices/user.js";
-import { setupListeners } from "@reduxjs/toolkit/query/react";
-import { musicApi } from "../services/music.api.js";
-import { userApi } from "../services/user.api.js";
+import { configureStore } from '@reduxjs/toolkit'
+import tracksReducer from './slices/trackSlice'
+import authReducer from './slices/authorizationSlice'
+import { tokenQuery } from '../serviceQuery/token'
+import { tracksQuery } from '../serviceQuery/tracks'
 
 export const store = configureStore({
   reducer: {
-    track: trackReducer,
-    user: userReducer,
-    [musicApi.reducerPath]: musicApi.reducer,
-    [userApi.reducerPath]: musicApi.reducer,
+    tracks: tracksReducer,
+    auth: authReducer,
+    [tracksQuery.reducerPath]: tracksQuery.reducer,
+    [tokenQuery.reducerPath]: tokenQuery.reducer,
   },
+
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([musicApi.middleware, userApi.middleware]),
-});
-setupListeners(store.dispatch);
+    getDefaultMiddleware()
+      .concat(tracksQuery.middleware)
+      .concat(tokenQuery.middleware),
+})

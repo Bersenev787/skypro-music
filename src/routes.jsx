@@ -1,34 +1,25 @@
-import { Routes, Route } from "react-router";
-import { NotFoundPage } from "./pages/NotFoundPage";
-import { ProtectedRoute } from "./components/protected-route/ProtectedRoute";
-import { useEffect, useState } from "react";
-import { AuthPage } from "./pages/AuthPage/AuthPage";
-import { Layout } from "./layouts/Layout";
-import { MainPage } from "./pages/main-page/MainPage";
-import { FavoritePage } from "./pages/favorite-page/FavoritePage";
+import { Routes, Route } from 'react-router-dom'
+import { MainPage } from './Pages/main-page/main'
+import { NotFoundPage } from './Pages/notfound-page/notfound'
+import { FavoritesPage } from './Pages/favorites-page/favorites'
+import { CategoryPage } from './Pages/category-page/category'
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import { AuthPage } from './Pages/auth-page/auth'
+import { Layout } from './components/Layout'
 
-export const AppRoutes = ({ user, setUser }) => {
+export function AppRoutes({ user, setUser }) {
   return (
     <Routes>
+      <Route path="/Auth" element={<AuthPage setUser={setUser} />} />
+
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<MainPage />} />
-          <Route
-            path="/favorites"
-            element={<FavoritePage title="Мои треки" />}
-          />
-          <Route path="category/:id" element={<MainPage />} />
+          <Route path="/" element={<MainPage setUser={setUser} />} />
+          <Route path="/Category/:id" element={<CategoryPage />} />
+          <Route path="/Favorites" element={<FavoritesPage />} />
         </Route>
       </Route>
-      <Route
-        path="/login"
-        element={<AuthPage isLoginMode={true} setUserData={setUser}></AuthPage>}
-      ></Route>
-      <Route
-        path="/register"
-        element={<AuthPage isLoginMode={false}></AuthPage>}
-      ></Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
-  );
-};
+  )
+}
