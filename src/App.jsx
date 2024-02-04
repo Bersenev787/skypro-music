@@ -1,20 +1,18 @@
-import { useState } from "react";
-import { GlobalStyle } from "./App.styles";
-import { UserContext } from "./components/contexts/User";
-import { AppRoutes } from "./routes";
+import React from 'react'
+import { AppRoutes } from './routes'
+import { useState } from 'react'
+import { UserContext } from './Context/UserContext'
+import { Provider } from 'react-redux'
+import { store } from './store/store'
 
-const App = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const token = localStorage.getItem("user");
+export const App = () => {
+  const [user, setUser] = useState(localStorage.getItem('user') || null)
 
   return (
-    <>
-      <UserContext.Provider value={{ user, setUser }}>
-        <AppRoutes token={token} />
-        <GlobalStyle />
-      </UserContext.Provider>
-    </>
-  );
-};
-
-export default App;
+    <UserContext.Provider value={user}>
+      <Provider store={store}>
+        <AppRoutes user={user} setUser={setUser} />
+      </Provider>
+    </UserContext.Provider>
+  )
+}

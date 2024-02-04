@@ -1,8 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit";
-import trackReducer from "./slices/playList";
+import { configureStore } from '@reduxjs/toolkit'
+import tracksReducer from './slices/trackSlice'
+import authReducer from './slices/authorizationSlice'
+import { tokenQuery } from '../serviceQuery/token'
+import { tracksQuery } from '../serviceQuery/tracks'
 
 export const store = configureStore({
   reducer: {
-    track: trackReducer,
+    tracks: tracksReducer,
+    auth: authReducer,
+    [tracksQuery.reducerPath]: tracksQuery.reducer,
+    [tokenQuery.reducerPath]: tokenQuery.reducer,
   },
-});
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware()
+      .concat(tracksQuery.middleware)
+      .concat(tokenQuery.middleware),
+})

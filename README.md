@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Working time on the Redux async
+
+Плановое время: 16 часов
+
+Фактическое время: 42 часов
+
 ## Available Scripts
 
 In the project directory, you can run:
