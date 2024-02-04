@@ -10,17 +10,17 @@ import {
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/user";
 
-export const AuthPage = ({ isLoginMode = false }) => {
+export const AuthPage = ({ isLoginMode = false, setUserData }) => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userLogin, { isSuccessLogin }] = useUserLoginMutation();
   const [userAccessToken] = useUserAccessTokenMutation();
   const [userRegister, { isSuccessRegister }] = useUserRegisterMutation();
+  const navigate = useNavigate();
 
   const setUserLocaleStorage = (user) => {
     localStorage.setItem("user_id", user.data.id);
@@ -29,75 +29,76 @@ export const AuthPage = ({ isLoginMode = false }) => {
 
   const handleLogin = async () => {
     setIsLoading(true);
-    await userAccessToken({ email, password })
-      .unwrap()
-      .then((accessToken) => {
-        localStorage.setItem("access", accessToken.access);
-        localStorage.setItem("refresh", accessToken.refresh);
+    try {
+      const accessToken = await userAccessToken({ email, password }).unwrap();
+      const user = await userLogin({ email, password });
+      setUserData(accessToken);
 
-        userLogin({ email, password }).then((user) => {
-          setUserLocaleStorage(user);
+      setUserLocaleStorage(user);
+      localStorage.setItem("access", accessToken.access);
+      localStorage.setItem("refresh", accessToken.refresh);
 
-          dispatch(
-            setUser({
-              email: user.data.email,
-              id: user.data.id,
-              access: accessToken.access,
-              refresh: accessToken.refresh,
-              userName: user.data.username,
-              isLogin: true,
-            })
-          );
-          navigate("/", { replace: true });
-        });
-      })
-      .then(() => {
-        navigate("/", { replace: true });
-      })
-      .catch((error) => {
-        throw new Error(error.message);
-      })
-      .finally(() => setIsLoading(false));
+      dispatch(
+        setUser({
+          email: user.data.email,
+          id: user.data.id,
+          access: accessToken.access,
+          refresh: accessToken.refresh,
+          userName: user.data.username,
+          isLogin: true,
+        })
+      );
+
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error(error.data);
+      setError(error.data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRegister = async () => {
     setIsLoading(true);
-    await userRegister({ username, email, password })
-      .then((user) => {
-        setUserLocaleStorage(user);
 
-        dispatch(
-          setUser({
-            email: user.data.email,
-            id: user.data.id,
-            userName: user.data.username,
-            isLogin: true,
-          })
-        );
-        userAccessToken({ email, password })
-          .unwrap()
-          .then((accessToken) => {
-            localStorage.setItem("access", accessToken.access);
-            localStorage.setItem("refresh", accessToken.refresh);
-            dispatch(
-              setUser({
-                email: user.data.email,
-                id: user.data.id,
-                access: accessToken.access,
-                refresh: accessToken.refresh,
-                userName: user.data.username,
-                isLogin: true,
-              })
-            );
-          });
-      })
-      .then(() => {
-        navigate("/", { replace: true });
-      })
-      .catch((error) => {
-        throw new Error(error.message);
-      })
-      .finally(() => setIsLoading(false));
+    try {
+      const user = await userRegister({ username, email, password });
+
+      setUserLocaleStorage(user);
+
+      dispatch(
+        setUser({
+          email: user.data.email,
+          id: user.data.id,
+          userName: user.data.username,
+          isLogin: true,
+        })
+      );
+
+      const accessToken = await userAccessToken({ email, password }).unwrap();
+      setUserData(accessToken);
+
+      localStorage.setItem("access", accessToken.access);
+      localStorage.setItem("refresh", accessToken.refresh);
+
+      dispatch(
+        setUser({
+          email: user.data.email,
+          id: user.data.id,
+          access: accessToken.access,
+          refresh: accessToken.refresh,
+          userName: user.data.username,
+          isLogin: true,
+        })
+      );
+
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("Error during registration:", error.data);
+      setError(error.data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {

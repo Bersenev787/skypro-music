@@ -22,7 +22,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   const forceLogout = () => {
     api.dispatch(setUser(null));
-    console.log(window);
     window.location.reload("/login");
   };
 
@@ -31,7 +30,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     return forceLogout();
   }
 
-  console.log("refreshResult.data.access");
   const refreshResult = await baseQuery(
     {
       url: "/user/token/refresh/",

@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
-        <AppRoutes />
+        <AppRoutes user={user} setUser={setUser} />
         <GlobalStyle />
       </UserContext.Provider>
     </>

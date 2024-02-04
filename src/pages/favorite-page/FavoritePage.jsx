@@ -43,7 +43,6 @@ export const FavoritePage = () => {
   }
 
   return (
-    // <Layout title="Мои треки">
     <>
       {isError ? (
         <div>{error.detail}</div>
@@ -51,7 +50,5 @@ export const FavoritePage = () => {
         <Playlist trackList={tracks} isLoading={isTracksLoading} />
       )}
     </>
-
-    // </Layout>
   );
 };

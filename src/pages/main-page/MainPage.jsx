@@ -20,7 +20,6 @@ export const MainPage = () => {
   }
 
   return (
-    // <Layout title="Треки">
     <>
       {isError ? (
         <div>{error?.detail}</div>
@@ -28,6 +27,5 @@ export const MainPage = () => {
         <Playlist trackList={data} isLoading={isTracksLoading} />
       )}
     </>
-    // </Layout>
   );
 };

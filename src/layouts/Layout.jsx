@@ -9,11 +9,13 @@ import { Outlet, useLocation } from "react-router-dom";
 import { PlaylistTitle } from "../components/playlist-title/PlaylistTitle";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Layout = () => {
   const location = useLocation();
   const isShowFilter = location.pathname === "/";
   const [title, setTitle] = useState("");
+  const trackId = useSelector((state) => state.track.trackId);
 
   const { id } = useParams();
   const titleList = {
@@ -48,7 +50,7 @@ export const Layout = () => {
           </S.MainCenterBlock>
           <Sidebar />
         </S.Main>
-        <Bar />
+        {trackId ? <Bar /> : null}
         <Footer />
       </S.Container>
     </S.Wrapper>
